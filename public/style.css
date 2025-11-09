@@ -191,50 +191,60 @@ icon {
     color: white;
 }
 
-/*
- * Tooltip Hint
- * ----------------------------- */
-
 .hint {
     position: relative;
     cursor: help;
-
     text-decoration: none;
-    background-image: linear-gradient(to right, #888 1px, transparent 1px);
+    background-image: linear-gradient(to right, #777 1px, transparent 1px);
     background-size: 3px 1px;
     background-position: 0 100%;
     background-repeat: repeat-x;
 }
 
-/* The rest of your hint rules are unchanged and perfect */
 .hint .hint-content {
+    /* This respects your line breaks */
     white-space: pre-wrap;
 
+    /* Sizing and position */
     position: absolute;
     z-index: 10;
-    bottom: 125%;
+    bottom: 100%; /* Position it to start at the top of the text */
     left: 50%;
     transform: translateX(-50%);
+    margin-bottom: 5px;
+
+    /* Styling */
     width: max-content;
     max-width: 70vw;
-
     background-color: #333333EE;
     color: white;
     padding: 4px 8px;
     border-radius: 6px;
     font-size: 0.9rem;
-    text-decoration: none;
     text-align: left;
 
+    /* Hide it by default */
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, visibility 0s 0.2s;
 }
 
-.hint:hover .hint-content {
+.hint .hint-content::before {
+    content: "";
+    position: absolute;
+    top: 100%; /* Start at the bottom of the tooltip */
+    left: 0;
+    width: 100%;
+    height: 5px; /* Must match the margin-bottom above */
+}
+
+.hint:hover .hint-content,
+.hint .hint-content:hover {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
 }
 
 textarea {
