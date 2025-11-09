@@ -220,7 +220,8 @@ icon {
 
 /* The rest of your hint rules are unchanged and perfect */
 .hint::after {
-    content: attr(data-hint);
+    white-space: pre-wrap;
+    content: attr(hint);
     position: absolute;
     z-index: 10;
     bottom: 125%;
