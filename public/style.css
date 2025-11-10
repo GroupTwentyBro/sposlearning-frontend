@@ -317,3 +317,21 @@ textarea {
     border: 1px solid hsl(198, 31%, 12%);
     color: white;
 }
+
+.inline-code {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.code-inline {
+    display: inline; /* This is the most important part */
+
+    /* These should match your vs2015 theme */
+    background: #1E1E1E;
+    color: #DCDCDC;
+
+    /* Resets to make it flow */
+    margin: 0;
+    padding: 0;
+}

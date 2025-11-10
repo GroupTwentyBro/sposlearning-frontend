@@ -1,0 +1,26 @@
+string heslo = "Kakao";
+int pokusy = 3;
+
+while (pokusy > 0)
+{
+    Console.WriteLine("Zadej heslo: ");
+    string zadaneHeslo = Console.ReadLine();
+
+    if (zadaneHeslo == heslo)
+    {
+        Console.WriteLine("Správné heslo.");
+        break;
+    }
+
+    pokusy--;
+    if (pokusy > 0)
+    {
+        Console.WriteLine($"Špatné heslo, zkus to znovu. | Počet zbývajícíh pokusů: {pokusy}");
+    }
+    else
+    {
+        Console.WriteLine("Špatné heslo. Došli ti pokusy");
+    }
+}
+
+Console.ReadKey();

@@ -4,7 +4,7 @@ import { app } from './firebaseConfig.js';
 // Added Auth imports
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 // Imports are complete
-import { getFirestore, collection, query, where, getDocs, doc, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { getFirestore, collection, query, where, getDoc, getDocs, doc, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 // Initialize
 const db = getFirestore(app);
@@ -17,9 +17,8 @@ let currentPage = null;
  * Main function to load and render content
  */
 async function loadContent() {
-    // 1. Get the page "fullPath" from the URL
     let fullPath = window.location.pathname.substring(1);
-    fullPath = fullPath.replace(/\/+$/, ''); // Remove trailing slash
+    fullPath = fullPath.replace(/\/+$/, '');
 
     if (fullPath === '') {
         window.location.href = '/';
@@ -27,23 +26,33 @@ async function loadContent() {
     }
 
     try {
-        // 3. Query Firestore for a document in "pages" with this fullPath
-        const pagesRef = collection(db, 'pages');
-        const q = query(pagesRef, where("fullPath", "==", fullPath));
-        const querySnapshot = await getDocs(q);
+        const newDocId = fullPath.replace(/\//g, '|');
+        const docRef = doc(db, 'pages', newDocId);
+        let docSnap = await getDoc(docRef);
+        let pageDoc = docSnap; // This will hold the final document
 
-        // 4. Check if we found a page
-        if (querySnapshot.empty) {
+        // 2. If not found, try searching by the fullPath field (OLD method)
+        if (!docSnap.exists()) {
+            console.log("Page not found with new ID, trying old query method...");
+            const pagesRef = collection(db, 'pages');
+            const q = query(pagesRef, where("fullPath", "==", fullPath));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+                console.log("Found page with old ID.");
+                pageDoc = querySnapshot.docs[0]; // Get the document from the query
+            }
+        }
+
+        // 3. Now, check if we found a page by *either* method
+        if (!pageDoc.exists()) {
             renderError(fullPath);
             return;
         }
 
-        // 5. We found it! Get the data and the document ID
-        const pageDoc = querySnapshot.docs[0]; // Get the full document
-        const pageData = pageDoc.data();     // Get its data
-
-        // **FIX**: Correctly save the page ID and data for our admin tools
-        currentPage = { id: pageDoc.id, data: pageData };
+        // 4. We found it! Get the data.
+        const pageData = pageDoc.data();
+        currentPage = { id: pageDoc.id, data: pageData }; // Store the ID (new or old)
 
         // Set the browser tab title
         document.title = pageData.title;
@@ -55,6 +64,17 @@ async function loadContent() {
             contentContainer.innerHTML = pageData.content;
         } else if (pageData.type === 'files') {
             renderFileExplorer(pageData.title, pageData.content);
+        } else if (pageData.type === 'redirection') {
+            const destination = pageData.content;
+
+            // Check if it's an external link
+            if (destination.startsWith('http://') || destination.startsWith('https://')) {
+                // It's external. Use replace() to act like a real redirect.
+                window.location.replace(destination);
+            } else {
+                // It's internal. Use href to navigate like a normal link.
+                window.location.href = destination;
+            }
         }
 
         contentContainer.querySelectorAll('pre code').forEach((block) => {

@@ -3,7 +3,7 @@
 // --- Imports ---
 import { auth } from '../js/firebaseConfig.js';
 import { onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { getFirestore, serverTimestamp, getDoc, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 // --- !! IMPORTANT: CONFIGURE CLOUDINARY !! ---
 const CLOUDINARY_CLOUD_NAME = "dmrefvudz"; // <-- PASTE YOUR CLOUD NAME
@@ -16,6 +16,7 @@ const db = getFirestore();
 // --- Get Elements ---
 let logoutButton, pageForm, pageTypeSelect, saveButton;
 let editorMarkdown, editorHTML, editorFiles;
+let editorRedirection;
 let pageTitle, pagePath, pageName;
 let statusSuccess, statusError;
 
@@ -41,6 +42,7 @@ function initializeDashboard() {
     editorMarkdown = document.getElementById('editor-markdown');
     editorHTML = document.getElementById('editor-html');
     editorFiles = document.getElementById('editor-files');
+    editorRedirection = document.getElementById('editor-redirection');
 
     pageTitle = document.getElementById('page-title');
     pagePath = document.getElementById('page-path');
@@ -69,6 +71,7 @@ function initializeDashboard() {
         editorMarkdown.style.display = (type === 'markdown') ? 'block' : 'none';
         editorHTML.style.display = (type === 'html') ? 'block' : 'none';
         editorFiles.style.display = (type === 'files') ? 'block' : 'none';
+        editorRedirection.style.display = (type === 'redirection') ? 'block' : 'none';
     });
 
     // --- 3. Main Save Logic ---
@@ -80,48 +83,67 @@ function initializeDashboard() {
         statusError.textContent = '';
 
         try {
+            // --- 3a. Clean the fullPath ---
+            let path = pagePath.value.trim();
+            let name = pageName.value.trim();
+            let fullPath = (path) ? `${path}/${name}` : name;
+            // Remove leading/trailing slashes
+            fullPath = fullPath.replace(/^\/+|\/+$/g, '');
+
+            // --- 3b. Create the new Document ID ---
+            const newDocId = fullPath.replace(/\//g, '|'); // e.g., "wep/html/div" -> "wep|html|div"
+            if (newDocId.length === 0) {
+                throw new Error("Page path and name cannot be empty.");
+            }
+
+            // --- 3c. Check if page already exists (using the new ID) ---
+            const docRef = doc(db, 'pages', newDocId);
+            const existingDoc = await getDoc(docRef); // We need getDoc, add it to the import
+            if (existingDoc.exists()) {
+                throw new Error(`A page already exists at this path: /${fullPath}`);
+            }
+
             const pageData = {
                 title: pageTitle.value,
-                name: pageName.value.trim(),
-                path: pagePath.value.trim(),
+                name: name,
+                path: path,
+                fullPath: fullPath,
                 type: pageTypeSelect.value,
                 content: null,
                 createdAt: serverTimestamp(),
                 createdBy: auth.currentUser.email
             };
 
-            // --- 3a. Clean the fullPath ---
-            let fullPath = (pageData.path) ? `${pageData.path}/${pageData.name}` : pageData.name;
-            // Remove leading/trailing slashes
-            fullPath = fullPath.replace(/^\/+|\/+$/g, '');
-            pageData.fullPath = fullPath;
-
-            // --- 3b. Check if page already exists ---
-            const q = query(collection(db, "pages"), where("fullPath", "==", fullPath));
-            const querySnapshot = await getDocs(q);
-            if (!querySnapshot.empty) {
-                throw new Error(`A page already exists at this path: /${fullPath}`);
-            }
-
-            // --- 3c. Get content based on type ---
+            // --- 3d. Get content based on type ---
             if (pageData.type === 'markdown') {
                 pageData.content = document.getElementById('md-content').value;
             } else if (pageData.type === 'html') {
                 pageData.content = document.getElementById('html-content').value;
-            } else if (pageData.type === 'files') {
-                const files = document.getElementById('file-upload-input').files;
-                if (files.length === 0) {
-                    throw new Error('Please select files for the File Explorer page.');
+            } else if (pageData.type === 'redirection') {
+                let url = document.getElementById('redirect-url').value.trim();
+                if (!url) {
+                    throw new Error('Please enter a destination URL.');
                 }
-                statusSuccess.textContent = 'Uploading files to Cloudinary...';
+
+                // Check if it's NOT an external link
+                if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                    // Make it an absolute internal link
+                    if (!url.startsWith('/')) {
+                        url = '/' + url;
+                    }
+                }
+                pageData.content = url; // Save the corrected URL
+            } else if (pageData.type === 'files') {
+                // ... (your file upload logic is unchanged) ...
                 pageData.content = await uploadFilesToCloudinary(files);
             }
 
-            // --- 3d. Save to Firestore ---
+            // --- 3e. Save to Firestore using setDoc ---
             statusSuccess.textContent = 'Saving page to database...';
-            const docRef = await addDoc(collection(db, 'pages'), pageData);
+            // Use setDoc with our custom docRef instead of addDoc
+            await setDoc(docRef, pageData);
 
-            console.log('Page saved with ID:', docRef.id);
+            console.log('Page saved with ID:', newDocId);
             statusSuccess.textContent = `Success! Page created at /${fullPath}`;
             pageForm.reset();
             // Reset editor view

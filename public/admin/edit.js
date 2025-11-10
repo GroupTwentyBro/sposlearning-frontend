@@ -1,7 +1,7 @@
 // public/admin/edit.js
 import { app, auth } from '/js/firebaseConfig.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-import { getFirestore, collection, query, where, getDocs, doc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { getFirestore, collection, deleteDoc, query, where, getDocs, setDoc, getDoc, doc, updateDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 // --- Initialize ---
 const db = getFirestore(app);
@@ -25,6 +25,7 @@ enableTabIndentation(document.getElementById('html-content'));
 let pageDocId = null;
 let pageType = null;
 let pageFullPath = null;
+let isOldDocument = false;
 
 /**
  * 1. Auth Guard: Redirect if not logged in
@@ -45,7 +46,6 @@ onAuthStateChanged(auth, (user) => {
  */
 async function loadPageForEditing() {
     try {
-        // Get the page path from the URL (e.g., ?path=wep/html/div)
         const params = new URLSearchParams(window.location.search);
         pageFullPath = params.get('path');
 
@@ -53,20 +53,36 @@ async function loadPageForEditing() {
             throw new Error('No page path specified in URL.');
         }
 
-        // Find the page in Firestore
-        const q = query(collection(db, "pages"), where("fullPath", "==", pageFullPath));
-        const querySnapshot = await getDocs(q);
+        // --- NEW DUAL-LOGIC SEARCH ---
 
-        if (querySnapshot.empty) {
-            throw new Error(`Page not found: /${pageFullPath}`);
+        // 1. Try to get the document using the NEW ID
+        const newDocId = pageFullPath.replace(/\//g, '|');
+        const docRef = doc(db, 'pages', newDocId);
+        let docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            // Found with NEW ID
+            isOldDocument = false;
+            pageDocId = docSnap.id;
+        } else {
+            // 2. If not found, try searching by the fullPath field (OLD method)
+            console.log("Page not found with new ID, trying old query method...");
+            const q = query(collection(db, "pages"), where("fullPath", "==", pageFullPath));
+            const querySnapshot = await getDocs(q);
+
+            if (querySnapshot.empty) {
+                throw new Error(`Page not found: /${pageFullPath}`);
+            }
+
+            // Found with OLD ID
+            isOldDocument = true;
+            pageDocId = querySnapshot.docs[0].id; // This is the old, random ID
+            docSnap = querySnapshot.docs[0]; // Use this doc snap
         }
 
-        const pageDoc = querySnapshot.docs[0];
-        pageDocId = pageDoc.id;
-        const data = pageDoc.data();
+        // 3. Populate form
+        const data = docSnap.data();
         pageType = data.type;
-
-        // Populate the form fields
         pageUrlDisplay.value = `/${data.fullPath}`;
         pageTitle.value = data.title;
 
@@ -99,9 +115,6 @@ editForm.addEventListener('submit', async (e) => {
     status.textContent = '';
 
     try {
-        // Get the correct doc reference
-        const docRef = doc(db, 'pages', pageDocId);
-
         // Get the new content from the visible editor
         let newContent = '';
         if (pageType === 'markdown') {
@@ -110,18 +123,47 @@ editForm.addEventListener('submit', async (e) => {
             newContent = htmlContent.value;
         }
 
-        // Update the document
-        await updateDoc(docRef, {
-            title: pageTitle.value,
-            content: newContent,
-            lastEditedBy: auth.currentUser.email,
-            lastEditedAt: serverTimestamp()
-        });
+        // --- NEW SELF-MIGRATION LOGIC ---
+        if (isOldDocument) {
+            // This is an OLD page. We will create a NEW doc and delete the OLD one.
+            status.textContent = 'Migrating page to new ID structure...';
+
+            // 1. Create the new doc ID
+            const newDocId = pageFullPath.replace(/\//g, '|');
+            const newDocRef = doc(db, 'pages', newDocId);
+
+            // 2. Get all page data
+            const oldDocRef = doc(db, 'pages', pageDocId);
+            const oldDocSnap = await getDoc(oldDocRef);
+            const pageData = oldDocSnap.data();
+
+            // 3. Update the data with our changes
+            pageData.title = pageTitle.value;
+            pageData.content = newContent;
+            pageData.lastEditedBy = auth.currentUser.email;
+            pageData.lastEditedAt = serverTimestamp();
+
+            // 4. Save the new document
+            await setDoc(newDocRef, pageData);
+
+            // 5. Delete the old document
+            await deleteDoc(oldDocRef);
+
+        } else {
+            // This is a NEW page. Just update it normally.
+            const docRef = doc(db, 'pages', pageDocId);
+            await updateDoc(docRef, {
+                title: pageTitle.value,
+                content: newContent,
+                lastEditedBy: auth.currentUser.email,
+                lastEditedAt: serverTimestamp()
+            });
+        }
 
         status.className = 'text-success';
         status.textContent = 'Success! Redirecting...';
 
-        // Redirect back to the page they were editing
+        // Redirect back to the page
         setTimeout(() => {
             window.location.href = `/${pageFullPath}`;
         }, 1000);
@@ -134,6 +176,7 @@ editForm.addEventListener('submit', async (e) => {
         saveButton.textContent = 'Save Changes';
     }
 });
+
 // --- HELPER FUNCTION FOR TAB INDENTATION ---
 function enableTabIndentation(textarea) {
     textarea.addEventListener('keydown', function(e) {

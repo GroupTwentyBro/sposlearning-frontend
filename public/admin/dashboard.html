@@ -51,6 +51,7 @@
                 <option value="markdown">Markdown</option>
                 <option value="html">HTML</option>
                 <option value="files">File Explorer</option>
+                <option value="redirection">Redirection</option> </select>
             </select>
         </div>
         <hr>
@@ -76,6 +77,11 @@
             <label for="file-upload-input">Upload Files</label>
             <input type="file" class="form-control-file" id="file-upload-input" multiple>
             <small class="form-text text-muted">Select one or more files to create a file list page.</small>
+        </div>
+
+        <div class="form-group" id="editor-redirection" style="display: none;">
+            <label for="redirect-url">Destination URL</label>
+            <input type="url" class="form-control" id="redirect-url" placeholder="/page/redirection">
         </div>
 
         <!-- Save Button -->
