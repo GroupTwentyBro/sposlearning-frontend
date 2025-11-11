@@ -18,14 +18,19 @@ const searchResultsContainer = document.getElementById('search-results');
 async function fetchAllPages() {
     try {
         const querySnapshot = await getDocs(collection(db, 'pages'));
+
+
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            allPages.push({
-                title: data.title, // The new human-readable title
-                path: data.fullPath, // The full URL path
-                // Only add content if it's text, not a file list
-                content: (data.type === 'markdown' || data.type === 'html') ? data.content.toLowerCase() : ''
-            });
+
+            if (data.type !== 'redirection') {
+                allPages.push({
+                    title: data.title, // The new human-readable title
+                    path: data.fullPath, // The full URL path
+                    // Only add content if it's text, not a file list
+                    content: (data.type === 'markdown' || data.type === 'html') ? data.content.toLowerCase() : ''
+                });
+            }
         });
 
         console.log(`Loaded ${allPages.length} pages for search.`);
