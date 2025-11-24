@@ -362,3 +362,7 @@ textarea {
 .info-message a {
     color: hsla(180, 180%, 50%, 1);
 }
+
+#button-bar {
+    margin: 0 1vw;
+}
