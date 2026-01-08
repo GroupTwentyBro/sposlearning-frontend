@@ -1,19 +1,64 @@
+:root {
+    /* ROOT CLRS */
+    --root-bg-clr: hsl(201, 100%, 9%);
+    --root-fg-clr: white;
+    --root-ul-sd-clr: gray;
+
+    /* PRIMARY CLRS */
+    --primary-boxbg-clr: hsl(201, 100%, 12%);
+    --primary-boxfg-clr: hsl(201, 100%, 15%);
+    --primary-sd-clr: hsl(201, 100%, 10%);
+    --primary-bg-clr: hsl(201, 100%, 19%);
+    --primary-fg-clr: hsl(201, 100%, 32%);
+    --primary-hl-clr: hsl(201, 100%, 64%);
+
+    /* SECONDARY CLRS */
+    --secondary-sd-clr: hsl(320, 100%, 10%);
+    --secondary-bg-clr: hsl(320, 100%, 19%);
+    --secondary-fg-clr: hsl(320, 100%, 32%);
+    --secondary-hl-clr: hsl(320, 100%, 64%);
+
+    /* TRIETARY CLRS */
+    --trietary-sd-clr: hsl(192, 100%, 10%);
+    --trietary-bg-clr: hsl(192, 100%, 19%);
+    --trietary-fg-clr: hsl(192, 100%, 32%);
+    --trietary-hl-clr: hsl(192, 100%, 64%);
+
+    /* FONT SIZES */
+    --fs-h1: 2rem;
+    --fs-h2: 1.5rem;
+    --fs-hinput: 1.3rem;
+
+    --fs-text: 1rem;
+    --fs-footer: 0.8rem;
+
+    --icon-big: 2.5rem;
+    --icon-small: 1.8rem;
+
+    /* UNDERLINE STYLES */
+    --ul-dotted: linear-gradient(to right, var(--root-ul-sd-clr) 1px, transparent 1px);
+
+
+}
+
 body {
-    background-color: #0b1215;
-    color: white;
+    background-color: var(--root-bg-clr);
+    color: var(--root-fg-clr);
     font-family: "Raleway";
 }
 
 h1 {
     font-weight: bolder;
+    font-size: var(--fs-h1);
 }
 
 h2 {
     font-weight: bold;
+    font-size: var(--fs-h2);
 }
 
 p {
-    font-size: 14pt;
+    font-size: var(--fs-text);
 }
 
 hr {
@@ -21,27 +66,26 @@ hr {
 }
 
 .content {
-    padding: 40px;
+    margin: auto;
+    padding: 40px 40px 10px 40px;
     width: 70%;
-
 }
 
 code {
-    color: #ff006e;
-    background-color: hsl(198, 31%, 12%);
-    border: 1px solid hsl(198, 31%, 16%);
-    padding: 3px 5px;
-    border-radius: 12px;
+    color: var(--secondary-hl-clr);
+    background-color: var(--primary-boxbg-clr);
+    border: 1px solid var(--primary-boxfg-clr);
+    padding: 1px 2px;
     font-family: "Fira Code", monospace;
 }
 
 icon {
     font-family: "Material Symbols Outlined";
-    font-size: 32pt;
+    font-size: var(--icon-big);
 }
 
 .navbar {
-    height: 100px;
+    height: 65px;
     width: 100%;
 }
 
@@ -49,9 +93,9 @@ icon {
     display: flex;
     margin: auto;
     height: 100%;
-    width: 90%;
-    border: 3px solid hsl(198, 31%, 18%);
-    background-color: hsl(198, 31%, 12%);
+    width: 65%;
+    border: 2px solid var(--primary-boxfg-clr);
+    background-color: var(--primary-boxbg-clr);
     border-radius: 40px;
     vertical-align: middle;
     padding: 0 20px;
@@ -65,59 +109,64 @@ icon {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    font-size: var(--icon-small);
 }
 
 .search input {
     width: 100%;
     border: none;
-    background-color: hsl(198, 31%, 12%);
+    height: 40%;
+    background-color: var(--primary-boxbg-clr);
     color: white;
     padding: 10px;
     margin: 0 5px;
-    font-size: 22pt;
+    font-size: var(--fs-hinput);
     vertical-align: middle;
 }
 
 .search input:focus {
     outline: none;
-    color: white;
+    color: var(--root-fg-clr);
 }
 
 #page-form input {
     background-color: hsl(198, 31%, 12%);
     border: 1px solid hsl(198, 31%, 18%);
-    color: white;
+    color: var(--root-fg-clr);
 }
 
 #page-form select {
     background-color: hsl(198, 31%, 12%);
     border: 1px solid hsl(198, 31%, 18%);
-    color: white;
+    color: var(--root-fg-clr);
 }
 
 #page-form textarea {
     background-color: hsl(198, 31%, 12%);
     border: 1px solid hsl(198, 31%, 18%);
-    color: white;
+    color: var(--root-fg-clr);
 }
 
 #page-form #editor-files input {
     background-color: #0b1215;
     border: none;
-    color: white;
+    color: var(--root-fg-clr);
 }
 
 #page-form #editor-files input button {
     background-color: hsl(198, 31%, 18%);
     border: 1px solid hsl(198, 31%, 12%);
-    color: white;
+    color: var(--root-fg-clr);
 }
 
 .dev-disclamer {
-    width: 98%;
-    margin: auto;
-    background-color: rgba(255, 0, 114, 0.38);
-    border: 2px solid rgba(255, 0, 114, 0.64);
+    padding: 0.6em;
+    margin: 1em auto;
+    width: 65%;
+    background-color: var(--secondary-bg-clr);
+    border: 2px none;
+    border-left: 4px solid var(--secondary-fg-clr);
+    border-radius: 5px;
 }
 .dev-message {
     display: flex;
@@ -137,17 +186,17 @@ icon {
 }
 
 .ver-tag {
-    color: gray;
+    color: var(--secondary-hl-clr);
     margin: 0;
     padding: 5px;
-    font-size: 10pt;
+    font-size: var(--fs-footer);
 }
 
 .admin-controls {
     background-color: hsl(198, 31%, 12%);
     border: none;
     border-radius: 10px;
-    color: white;
+    color: var(--root-fg-clr);
     padding: 5px 10px;
     display: flex;
     justify-content: space-between;
@@ -164,38 +213,38 @@ icon {
 #edit-form input {
     background-color: hsl(198, 31%, 12%);
     border: 1px solid hsl(198, 31%, 18%);
-    color: white;
+    color: var(--root-fg-clr);
 }
 
 #edit-form select {
     background-color: hsl(198, 31%, 12%);
     border: 1px solid hsl(198, 31%, 18%);
-    color: white;
+    color: var(--root-fg-clr);
 }
 
 #edit-form textarea {
     background-color: hsl(198, 31%, 12%);
     border: 1px solid hsl(198, 31%, 18%);
-    color: white;
+    color: var(--root-fg-clr);
 }
 
 #edit-form #editor-files input {
     background-color: #0b1215;
     border: none;
-    color: white;
+    color: var(--root-fg-clr);
 }
 
 #edit-form #editor-files input button {
     background-color: hsl(198, 31%, 18%);
     border: 1px solid hsl(198, 31%, 12%);
-    color: white;
+    color: var(--root-fg-clr);
 }
 
 .hint {
     position: relative;
     cursor: help;
     text-decoration: none;
-    background-image: linear-gradient(to right, #777 1px, transparent 1px);
+    background-image: var(--ul-dotted);
     background-size: 3px 1px;
     background-position: 0 100%;
     background-repeat: repeat-x;
@@ -216,11 +265,11 @@ icon {
     /* Styling */
     width: max-content;
     max-width: 70vw;
-    background-color: #333333EE;
+    background-color: var(--primary-boxbg-clr);
     color: white;
     padding: 4px 8px;
     border-radius: 6px;
-    font-size: 0.9rem;
+    font-size: var(--fs-footer);
     text-align: left;
 
     /* Hide it by default */
@@ -228,6 +277,10 @@ icon {
     visibility: hidden;
     pointer-events: none;
     transition: opacity 0.2s ease, visibility 0s 0.2s;
+}
+
+.hint .hint-content a {
+    color: var(--primary-hl-clr);
 }
 
 .hint .hint-content::before {
@@ -337,10 +390,13 @@ textarea {
 }
 
 .info-disclamer {
-    width: 98%;
-    margin: auto;
-    background-color: hsla(180, 100%, 50%, 0.38);
-    border: 2px solid hsla(180, 100%, 50%, 0.64);
+    padding: 0.6em;
+    margin: 1em auto;
+    width: 65%;
+    background-color: var(--trietary-bg-clr);
+    border: 2px none;
+    border-left: 4px solid var(--trietary-fg-clr);
+    border-radius: 5px;
 }
 .info-message {
     display: flex;
@@ -360,7 +416,7 @@ textarea {
 }
 
 .info-message a {
-    color: hsla(180, 180%, 50%, 1);
+    color: var(--trietary-hl-clr);
 }
 
 #button-bar {
