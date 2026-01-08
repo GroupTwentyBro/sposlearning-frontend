@@ -115,7 +115,7 @@ icon {
 .search input {
     width: 100%;
     border: none;
-    height: 40%;
+    height: 60%;
     background-color: var(--primary-boxbg-clr);
     color: white;
     padding: 10px;
@@ -341,7 +341,17 @@ textarea {
     color: white;
 }
 
-#search-results a {
+#search-results {
+    display: block;
+    position: fixed;
+    left: calc(50% - (65% / 2));
+    width: 65%;
+    top: 70px;
+    background-color: #0000;
+}
+
+#search-result-list a {
+    margin: 10px;
     background-color: hsl(198, 31%, 12%);
     border: 1px solid hsl(198, 31%, 18%);
     color: white;

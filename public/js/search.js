@@ -78,7 +78,7 @@ function renderResults(results) {
     }
 
     const resultList = document.createElement('div');
-    resultList.className = 'list-group';
+    resultList.className = 'search-result-list';
 
     results.forEach(page => {
         // We no longer need to format the title, just use it
@@ -87,7 +87,7 @@ function renderResults(results) {
         // Create a clickable link
         const link = document.createElement('a');
         link.href = `/${page.path}`; // Use the fullPath for the link
-        link.className = 'list-group-item list-group-item-action';
+        link.className = 'search-result list-group-item list-group-item-action';
         link.textContent = title;
 
         resultList.appendChild(link);
