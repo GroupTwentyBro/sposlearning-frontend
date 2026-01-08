@@ -19,3 +19,4 @@ Thumbs.db
 # Local Environment files
 functions/.env.local
 functions/.env.*.local
+firebase.json
