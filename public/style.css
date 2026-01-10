@@ -49,6 +49,10 @@ body {
     margin-bottom: 40px;
 }
 
+a {
+    color : var(--primary-hl-clr);
+}
+
 h1 {
     font-weight: bolder;
     font-size: var(--fs-h1);
@@ -71,6 +75,10 @@ hr {
     margin: auto;
     padding: 40px 40px 10px 40px;
     width: 70%;
+}
+
+.content.mainpage {
+    padding: 0 40px;
 }
 
 code {
@@ -196,14 +204,15 @@ icon {
 .control-bar {
     display: flex;
     position: fixed;
-    bottom: 15px;
+    bottom: 0;
     width: 95%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: hsl(from var(--primary-boxbg-clr) h s l / 80%);
+    background-color: var(--primary-boxbg-clr);
     padding: 5px 5px;
     z-index: 999;
-    border-radius: 20px;
+    border-radius: 20px 20px 0 0;
+    border: 1px solid var(--primary-boxfg-clr);
     justify-content: space-between;
     align-items: center;
 }

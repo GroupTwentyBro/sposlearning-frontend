@@ -12,7 +12,7 @@ let currentPage = null;
 // --- Get Elements from the HTML ---
 const searchInput = document.getElementById('search-input');
 const welcomeMessage = document.getElementById('welcome-message');
-const disclamerDev = document.getElementById('disclamer-dev');
+// const disclamerDev = document.getElementById('disclamer-dev');
 const disclamerInfo = document.getElementById('disclamer-info');
 const searchResultsContainer = document.getElementById('search-results');
 
@@ -56,7 +56,7 @@ function handleSearch(e) {
 
     if (searchTerm.length < 2) {
         welcomeMessage.style.display = 'block';
-        disclamerDev.style.display = 'block';
+        // disclamerDev.style.display = 'block';
         disclamerInfo.style.display = 'block';
         searchResultsContainer.style.display = 'none';
         searchResultsContainer.innerHTML = '';
@@ -69,7 +69,7 @@ function handleSearch(e) {
     );
 
     welcomeMessage.style.display = 'none';
-    disclamerDev.style.display = 'none';
+    // disclamerDev.style.display = 'none';
     disclamerInfo.style.display = 'none';
     searchResultsContainer.style.display = 'block';
     renderResults(results);
