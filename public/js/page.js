@@ -81,6 +81,11 @@ async function loadContent() {
             hljs.highlightElement(block);
         });
 
+        if (window.MathJax) {
+            // Tell MathJax to scan the new content for equations
+            window.MathJax.typesetPromise([contentContainer]).catch((err) => console.log(err));
+        }
+
     } catch (error) {
         console.error("Error loading content:", error);
         renderError(fullPath, error);

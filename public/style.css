@@ -25,9 +25,15 @@
     --trietary-fg-clr: hsl(192, 100%, 32%);
     --trietary-hl-clr: hsl(192, 100%, 64%);
 
+    /* DISCL ClRS */
+    --discl-warn-bg-clr: hsl(0, 100%, 19%);
+    --discl-warn-fg-clr: hsl(0, 100%, 32%);
+
     /* FONT SIZES */
-    --fs-h1: 2rem;
-    --fs-h2: 1.5rem;
+    --fs-h1: 2.2rem;
+    --fs-h2: 1.7rem;
+    --fs-h3: 1.5rem;
+    --fs-h4: 1.2rem;
     --fs-hinput: 1.3rem;
 
     --fs-text: 1rem;
@@ -56,11 +62,25 @@ a {
 h1 {
     font-weight: bolder;
     font-size: var(--fs-h1);
+    margin-top: 15px;
 }
 
 h2 {
     font-weight: bold;
     font-size: var(--fs-h2);
+    margin-top: 10px;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: var(--fs-h3);
+    margin-top: 10px;
+}
+
+h4 {
+    font-weight: bold;
+    font-size: var(--fs-h4);
+    margin-top: 10px;
 }
 
 p {
@@ -485,70 +505,6 @@ textarea {
     margin: 0 1vw;
 }
 
-@media only screen and (max-width: 500px) {
-    :root {
-        --fs-unimportant: 0.8rem;
-    }
-
-    .content {
-        width: 100%;
-        padding: 10px;
-    }
-
-    .search {
-        width: 98%;
-    }
-
-    .dev-disclamer {
-        width: 98%;
-        padding: 5px;
-        font-size: var(--fs-unimportant);
-    }
-
-    .dev-message {
-        padding: 0;
-        font-size: var(--fs-unimportant);
-    }
-
-    .dev-message > p {
-        font-size: var(--fs-unimportant);
-        font-weight: normal;
-    }
-
-    .dev-message > icon {
-        display: none;
-    }
-
-    .ver-tag {
-        display: none;
-        padding: 0;
-    }
-
-    .info-disclamer {
-        width: 98%;
-        padding: 5px;
-        font-size: var(--fs-unimportant);
-    }
-
-    .info-message {
-        padding: 0;
-        font-size: var(--fs-unimportant);
-    }
-
-    .info-message > p {
-        font-size: var(--fs-unimportant);
-        font-weight: normal;
-    }
-
-    .info-message > icon {
-        display: none;
-    }
-
-    #search-results {
-        width: 95%;
-    }
-}
-
 /* --- Tree View Styles --- */
 
 .search-tree, .search-tree ul {
@@ -909,4 +865,108 @@ textarea {
     display: inline-flex;
     align-items: center;
     /* ... existing styles ... */
+}
+
+spacer {
+    width: 2em;
+    display: inline-block;
+}
+
+.content p {
+    margin: 20px 0;
+}
+
+discl[type="warn"] {
+    display: block;
+    padding: 0.6em;
+    margin: 0.5em 1em 0.5em 0;
+    width: 65%;
+    background-color: var(--discl-warn-bg-clr);
+    border: 2px none;
+    border-left: 4px solid var(--discl-warn-fg-clr);
+    border-radius: 5px;
+}
+
+discl[type="warn"]::before {
+    content: "priority_high ";
+    font-family: "Material Symbols Outlined";
+    font-size: 1em;
+}
+
+@media only screen and (max-width: 500px) {
+    :root {
+        --fs-unimportant: 0.8rem;
+    }
+
+    .content {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .content img {
+        width: 100%;
+    }
+
+
+    .content.mainpage {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .search {
+        width: 98%;
+    }
+
+    .dev-disclamer {
+        width: 98%;
+        padding: 5px;
+        font-size: var(--fs-unimportant);
+    }
+
+    .dev-message {
+        padding: 0;
+        font-size: var(--fs-unimportant);
+    }
+
+    .dev-message > p {
+        font-size: var(--fs-unimportant);
+        font-weight: normal;
+    }
+
+    .dev-message > icon {
+        display: none;
+    }
+
+    .ver-tag {
+        display: none;
+        padding: 0;
+    }
+
+    .info-disclamer {
+        width: 98%;
+        padding: 5px;
+        font-size: var(--fs-unimportant);
+    }
+
+    .info-message {
+        padding: 0;
+        font-size: var(--fs-unimportant);
+    }
+
+    .info-message > p {
+        font-size: var(--fs-unimportant);
+        font-weight: normal;
+    }
+
+    .info-message > icon {
+        display: none;
+    }
+
+    #search-results {
+        width: 95%;
+    }
+
+    discl[type="warn"] {
+        width: 98%;
+    }
 }
