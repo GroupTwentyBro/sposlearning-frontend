@@ -26,8 +26,16 @@
     --trietary-hl-clr: hsl(192, 100%, 64%);
 
     /* DISCL ClRS */
-    --discl-warn-bg-clr: hsl(0, 100%, 19%);
-    --discl-warn-fg-clr: hsl(0, 100%, 32%);
+    --discl-def-bg-clr: hsl(0, 0%, 19%);
+    --discl-def-fg-clr: hsl(0, 0%, 32%);
+    --discl-important-bg-clr: hsl(0, 100%, 19%);
+    --discl-important-fg-clr: hsl(0, 100%, 32%);
+    --discl-importantgreen-bg-clr: hsl(120, 100%, 19%);
+    --discl-importantgreen-fg-clr: hsl(120, 100%, 32%);
+    --discl-warning-bg-clr: hsl(45, 100%, 19%);
+    --discl-warning-fg-clr: hsl(45, 100%, 32%);
+    --discl-info-bg-clr: hsl(200, 100%, 19%);
+    --discl-info-fg-clr: hsl(200, 100%, 32%);
 
     /* FONT SIZES */
     --fs-h1: 2.2rem;
@@ -876,21 +884,60 @@ spacer {
     margin: 20px 0;
 }
 
-discl[type="warn"] {
-    display: block;
+discl {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+
     padding: 0.6em;
     margin: 0.5em 1em 0.5em 0;
     width: 65%;
-    background-color: var(--discl-warn-bg-clr);
+    background-color: var(--discl-def-bg-clr);
     border: 2px none;
-    border-left: 4px solid var(--discl-warn-fg-clr);
+    border-left: 4px solid var(--discl-def-fg-clr);
     border-radius: 5px;
 }
 
-discl[type="warn"]::before {
-    content: "priority_high ";
+discl::before {
+    content: "question_mark";
     font-family: "Material Symbols Outlined";
-    font-size: 1em;
+    font-size: 1.5em;
+}
+
+discl[type="important"], discl[type="important-red"] {
+    background-color: var(--discl-important-bg-clr);
+    border-color: var(--discl-important-fg-clr);
+}
+
+discl[type="important"]::before, discl[type="important-red"]::before {
+    content: "error";
+}
+
+discl[type="important-green"] {
+    background-color: var(--discl-importantgreen-bg-clr);
+    border-color: var(--discl-importantgreen-fg-clr);
+}
+
+discl[type="important-green"]::before {
+    content: "error";
+}
+
+discl[type="warning"], discl[type="warn"] {
+    background-color: var(--discl-warning-bg-clr);
+    border-color: var(--discl-warning-fg-clr);
+}
+
+discl[type="warning"]::before, discl[type="warn"]::before {
+    content: "warning";
+}
+
+discl[type="info"] {
+    background-color: var(--discl-info-bg-clr);
+    border-color: var(--discl-info-fg-clr);
+}
+
+discl[type="info"]::before {
+    content: "info";
 }
 
 @media only screen and (max-width: 500px) {
@@ -966,7 +1013,7 @@ discl[type="warn"]::before {
         width: 95%;
     }
 
-    discl[type="warn"] {
+    discl {
         width: 98%;
     }
 }
