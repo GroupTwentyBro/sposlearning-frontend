@@ -15,9 +15,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Libertinus+Math&display=swap" rel="stylesheet">
     <script>
         window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
             chtml: {
-                displayAlign: 'left',   // Align equations to the left
-                displayIndent: '2em'    // (Optional) Add a small indentation from the edge
+                displayAlign: 'left',
+                displayIndent: '2em'
+            },
+            options: {
+                // This ensures MathJax ignores code blocks so it doesn't render
+                // math inside your C# or HTML examples
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
             }
         };
     </script>

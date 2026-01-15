@@ -14,6 +14,29 @@ const contentContainer = document.getElementById('wiki-content-container');
 // This will store the loaded page's ID and data
 let currentPage = null;
 
+const mathExtension = {
+    name: 'math',
+    level: 'inline',
+    start(src) { return src.indexOf('$'); },
+    tokenizer(src) {
+        // Match $$ block math $$
+        const blockRule = /^\$\$\s*([\s\S]*?)\s*\$\$/;
+        const blockMatch = blockRule.exec(src);
+        if (blockMatch) {
+            return { type: 'text', raw: blockMatch[0], text: blockMatch[0] };
+        }
+        // Match $ inline math $
+        const inlineRule = /^\$((?:[^\$\\]|\\.)*)\$/;
+        const inlineMatch = inlineRule.exec(src);
+        if (inlineMatch) {
+            return { type: 'text', raw: inlineMatch[0], text: inlineMatch[0] };
+        }
+    },
+    renderer(token) { return token.text; }
+};
+
+marked.use({ extensions: [mathExtension] });
+
 /**
  * Main function to load and render content
  */
@@ -61,6 +84,8 @@ async function loadContent() {
         // 6. Render the content based on its type
         if (pageData.type === 'markdown') {
             contentContainer.innerHTML = marked.parse(pageData.content, { breaks: true });
+            contentContainer.classList.add('tex2jax_process');
+            contentContainer.innerHTML = marked.parse(pageData.content, { breaks: true });
         } else if (pageData.type === 'html') {
             contentContainer.innerHTML = pageData.content;
         } else if (pageData.type === 'files') {
@@ -82,8 +107,7 @@ async function loadContent() {
             hljs.highlightElement(block);
         });
 
-        if (window.MathJax) {
-            // Tell MathJax to scan the new content for equations
+        if (window.MathJax && window.MathJax.typesetPromise) {
             window.MathJax.typesetPromise([contentContainer]).catch((err) => console.log(err));
         }
 
