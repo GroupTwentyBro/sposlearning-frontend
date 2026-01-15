@@ -4,21 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Feedback - SPOŠLearning</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="control-bar">
+    <div class="user-controls">
+        <a href="/" class="btn btn-sm btn-primary">Home</a>
+    </div>
+</div>
 
-<!-- TODO:
-I want it to look pretty much like the add-page page, so I want there to be a title for the report
-and a path input that will automatically be prefilled if you click on send feedback on a specific page (through url parameters).
-Then there should be a content input where the actual feedback will go and an email field so that we can further contact the person
-if we want to discuss more.
+<div class="content">
+    <h1>Send Feedback</h1>
+    <p>Found a bug or have a suggestion? Let us know.</p>
+    <hr>
 
-The feedback should probably be saved into a new table on firestore and store all this information as well as the time submitted,
-the sender's IP address and everything that you normally store.
+    <form id="feedback-form">
+        <input type="hidden" id="feedback-page">
 
-I want it to look pretty much the same as the add-page page just to keep it consistent.
--->
+        <div class="form-group">
+            <label for="feedback-name">Name (Optional)</label>
+            <input type="text" class="form-control" id="feedback-name" placeholder="Your Name">
+        </div>
 
-<script src="/js/feedback.js"></script>
+        <div class="form-group">
+            <label for="feedback-contact">Contact Email (Optional)</label>
+            <input type="email" class="form-control" id="feedback-contact" placeholder="name@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="feedback-type">Feedback Type</label>
+            <select class="form-control" id="feedback-type">
+                <option value="Suggestion">Suggestion</option>
+                <option value="Bug">Website Bug</option>
+                <option value="Content Error">Content Error</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="feedback-message">Message</label>
+            <textarea class="form-control" id="feedback-message" rows="5" required placeholder="Describe your feedback..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submit-btn">Submit Feedback</button>
+    </form>
+
+    <div id="status-message" class="mt-3"></div>
+</div>
+
+<script type="module" src="/js/feedback.js"></script>
 </body>
 </html>
