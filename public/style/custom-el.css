@@ -213,6 +213,6 @@ h2.boxed {
 }
 
 .text.boxed {
-    color: var(--box-clr);
+    color: var(--box-txt-clr);
 }
 /* ----------------------------------------------- */

@@ -15,6 +15,7 @@
     --box-overlay-fg-clr: hsla(0, 0%, 100%, 50%);
     --box-overlay-border-clr: hsla(0, 0%, 100%, 8%);
     --box-border-radius: 20px;
+    --box-txt-clr: #FFFFFFBB;
 
     /* PRIMARY CLRS */
     --primary-boxbg-clr: hsl(201, 100%, 12%);
