@@ -1,5 +1,5 @@
 import {app, auth} from './firebaseConfig.js';
-import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 // --- Global cache ---
@@ -216,9 +216,15 @@ function setupAdminTools() {
             // (Your existing button logic here...)
             loggedInContainer.innerHTML = `<button class="btn btn-sm btn-danger" id="logout-button">Logout</button>`;
 
-            document.getElementById('logout-button').addEventListener('click', async () => {
-                const { signOut } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
-                await signOut(auth);
+            document.getElementById('logout-button').addEventListener('click', () => {
+                signOut(auth)
+                    .then(() => {
+                        console.log("User signed out successfully");
+                        // The onAuthStateChanged listener will trigger automatically and update UI
+                    })
+                    .catch((error) => {
+                        console.error("Error signing out:", error);
+                    });
             });
         } else {
             loggedInContainer.innerHTML = '';
