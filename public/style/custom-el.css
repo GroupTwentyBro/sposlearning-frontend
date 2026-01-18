@@ -99,7 +99,7 @@ discl[type="info"]::before {
 }
 
 .info-disclamer {
-    padding: 5px;
+    padding: 20px;
     width: 100%;
     background-color: hsl(from var(--trietary-bg-clr) h s l / 40%);
     border: 1px solid hsl(from var(--trietary-fg-clr) h s l / 40%);
