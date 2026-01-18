@@ -65,6 +65,8 @@ function initializeDashboard() {
     pageTitle = document.getElementById('page-title');
     pagePath = document.getElementById('page-path');
 
+    const adminCheckbox = document.getElementById('page-is-admin');
+
     statusSuccess = document.getElementById('page-success-status');
     statusError = document.getElementById('page-error-status');
 
@@ -155,6 +157,9 @@ function initializeDashboard() {
                 name: name,         // Saved separately
                 path: path,         // Saved separately
                 fullPath: fullPath, // Saved combined
+
+                accessLevel: adminCheckbox.checked ? 'admin' : 'public',
+
                 type: pageTypeSelect.value,
                 content: null,
                 createdAt: serverTimestamp(),
@@ -186,6 +191,7 @@ function initializeDashboard() {
             console.log('Page saved with ID:', newDocId);
             statusSuccess.textContent = `Success! Page created at /${fullPath}`;
             pageForm.reset();
+            adminCheckbox.checked = false;
             pageTypeSelect.dispatchEvent(new Event('change'));
 
         } catch (error) {
