@@ -214,6 +214,7 @@ function setupAdminTools() {
             let editButton = '';
             let deleteButton = '';
             // (Your existing button logic here...)
+            <a href="/admin/dashboard" className="btn btn-sm btn-white">Dashboard</a>
             loggedInContainer.innerHTML = `<button class="btn btn-sm btn-danger" id="logout-button">Logout</button>`;
 
             document.getElementById('logout-button').addEventListener('click', () => {
