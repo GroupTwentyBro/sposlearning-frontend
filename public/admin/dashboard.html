@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="/style/variables.css">
     <link rel="stylesheet" href="/style/base.css">
     <link rel="stylesheet" href="/style/components.css">
-    <link rel="stylesheet" href="/style/forms.css">
-    <link rel="stylesheet" href="/style/search.css">
+    <link rel="stylesheet" href="/style/custom-el.css">
     <link rel="stylesheet" href="/style/mobile.css">
 
     <!-- Fonts -->
@@ -30,116 +29,26 @@
     <!--
       NEW UNIFIED FORM
     -->
-    <form id="page-form" class="mt-3">
-
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="page-title">Page Name</label>
-                    <input type="text" class="form-control" id="page-title" placeholder="e.g., '2D Pole'" required>
-                    <small class="form-text text-muted">Used in search results</small>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="page-path">Path</label>
-
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="page-path" placeholder="e.g., /prg/2d-pole/">
-                        <button id="pickpath-button" class="btn btn-secondary" type="button">
-                            <icon>folder_open</icon>
-                        </button>
-                    </div>
-
-                    <small class="form-text text-muted">Put a slash at the start and end</small>
-                </div>
+    <div class="box-row">
+        <div class="box">
+            <div class="col">
+                <icon class="boxed clr1">add_circle</icon>
+                <h2 class="boxed">Přidání článku</h2>
+                <div class="text boxed">Tady se přidávají články. No comment.</div>
+                <a href="/admin/add-page"><button class="btn btn-primary mt-3">Otevřít</button></a>
             </div>
         </div>
-
-        <div class="form-group mt-2 mb-0">
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="page-is-admin">
-                <label class="custom-control-label" for="page-is-admin">
-                    <strong>Admin Only</strong>
-                    <span class="text-muted" style="font-weight: normal;">(Hide from public search results)</span>
-                </label>
-            </div>
-        </div>
-
-        <!-- Page Type Selector -->
-        <div class="form-group mt-3">
-            <label for="page-type">Select Page Type</label>
-            <select class="form-control" id="page-type">
-                <option value="markdown">Markdown</option>
-                <option value="html">HTML</option>
-                <option value="files">File Explorer</option>
-                <option value="redirection">Redirection</option> </select>
-            </select>
-        </div>
-        <hr>
-
-        <!--
-          DYNAMIC CONTENT EDITORS
-        -->
-
-        <!-- Markdown Editor -->
-        <div class="form-group" id="editor-markdown">
-            <label for="md-content">Markdown Content</label>
-            <textarea class="form-control" id="md-content" rows="10" placeholder="## Hello World!"></textarea>
-        </div>
-
-        <!-- HTML Editor -->
-        <div class="form-group" id="editor-html" style="display: none;">
-            <label for="html-content">Raw HTML Content</label>
-            <textarea class="form-control" id="html-content" rows="10" placeholder="<h1>My Custom Page</h1>"></textarea>
-        </div>
-
-        <!-- File Explorer Editor -->
-        <div class="form-group" id="editor-files" style="display: none;">
-            <label for="file-upload-input">Upload Files</label>
-            <input type="file" class="form-control-file" id="file-upload-input" multiple>
-            <small class="form-text text-muted">Select one or more files to create a file list page.</small>
-        </div>
-
-        <div class="form-group" id="editor-redirection" style="display: none;">
-            <label for="redirect-url">Destination URL</label>
-            <input type="url" class="form-control" id="redirect-url" placeholder="/page/redirection">
-        </div>
-
-        <!-- Save Button -->
-        <button type="submit" class="btn btn-primary mt-3" id="save-button" style="border-radius: 999px !important;">Save Page</button>
-        <p id="page-success-status" class="text-success mt-2"></p>
-        <p id="page-error-status" class="text-danger mt-2"></p>
-    </form>
-
-</div> <!-- /container -->
-
-<div id="path-picker-modal" class="custom-modal" style="display: none;">
-    <div class="custom-modal-content">
-        <div class="modal-header">
-            <h3>Select Parent Path</h3>
-            <button id="close-modal-btn" class="btn-icon"><icon>close</icon></button>
-        </div>
-
-        <div class="modal-body">
-            <div id="path-tree-container">Loading...</div>
-        </div>
-
-        <div class="modal-footer">
-            <div class="selection-display">
-                <small>Selected Path:</small>
-                <code id="modal-selected-path">/</code>
-            </div>
-            <div class="modal-actions">
-                <button type="button" id="modal-new-folder-btn" class="btn btn-sm btn-dark">
-                    <icon style="font-size: 1.2rem; vertical-align: bottom;">create_new_folder</icon> New File/Folder
-                </button>
-                <button type="button" id="modal-select-btn" class="btn btn-primary">Select Path</button>
+        <div class="box">
+            <div class="col">
+                <icon class="boxed clr3">chat</icon>
+                <h2 class="boxed">Zpětná vazba</h2>
+                <div class="text boxed">Zde se můžeš podívat na zpětnou vazbu. Na to přijdeš není to těžký.</div>
+                <a href="/admin/feedback"><button class="btn btn-primary mt-3">Otevřít</button></a>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Add Bootstrap's JS for tab functionality -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
