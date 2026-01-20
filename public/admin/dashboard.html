@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - SPOŠLearning</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="/style/variables.css">
+    <link rel="stylesheet" href="/style/base.css">
+    <link rel="stylesheet" href="/style/components.css">
+    <link rel="stylesheet" href="/style/forms.css">
+    <link rel="stylesheet" href="/style/search.css">
+    <link rel="stylesheet" href="/style/mobile.css">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" /></head>
-<!-- public/admin/dashboard.html -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+</head>
 <body>
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center">
@@ -46,6 +54,16 @@
 
                     <small class="form-text text-muted">Put a slash at the start and end</small>
                 </div>
+            </div>
+        </div>
+
+        <div class="form-group mt-2 mb-0">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="page-is-admin">
+                <label class="custom-control-label" for="page-is-admin">
+                    <strong>Admin Only</strong>
+                    <span class="text-muted" style="font-weight: normal;">(Hide from public search results)</span>
+                </label>
             </div>
         </div>
 
@@ -90,7 +108,7 @@
         </div>
 
         <!-- Save Button -->
-        <button type="submit" class="btn btn-primary mt-3" id="save-button">Save Page</button>
+        <button type="submit" class="btn btn-primary mt-3" id="save-button" style="border-radius: 999px !important;">Save Page</button>
         <p id="page-success-status" class="text-success mt-2"></p>
         <p id="page-error-status" class="text-danger mt-2"></p>
     </form>

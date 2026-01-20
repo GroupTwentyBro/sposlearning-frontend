@@ -1,65 +1,9 @@
-:root {
-    /* ROOT CLRS */
-    --root-bg-clr: hsl(201, 100%, 9%);
-    --root-fg-clr: white;
-    --root-fgd-clr: #AAA;
-    --root-ul-sd-clr: gray;
 
-    /* PRIMARY CLRS */
-    --primary-boxbg-clr: hsl(201, 100%, 12%);
-    --primary-boxfg-clr: hsl(201, 100%, 15%);
-    --primary-sd-clr: hsl(201, 100%, 10%);
-    --primary-bg-clr: hsl(201, 100%, 19%);
-    --primary-fg-clr: hsl(201, 100%, 32%);
-    --primary-hl-clr: hsl(201, 100%, 64%);
-
-    /* SECONDARY CLRS */
-    --secondary-sd-clr: hsl(320, 100%, 10%);
-    --secondary-bg-clr: hsl(320, 100%, 19%);
-    --secondary-fg-clr: hsl(320, 100%, 32%);
-    --secondary-hl-clr: hsl(320, 100%, 64%);
-
-    /* TRIETARY CLRS */
-    --trietary-sd-clr: hsl(192, 100%, 10%);
-    --trietary-bg-clr: hsl(192, 100%, 19%);
-    --trietary-fg-clr: hsl(192, 100%, 32%);
-    --trietary-hl-clr: hsl(192, 100%, 64%);
-
-    /* DISCL ClRS */
-    --discl-def-bg-clr: hsl(0, 0%, 19%);
-    --discl-def-fg-clr: hsl(0, 0%, 32%);
-    --discl-important-bg-clr: hsl(0, 100%, 19%);
-    --discl-important-fg-clr: hsl(0, 100%, 32%);
-    --discl-importantgreen-bg-clr: hsl(120, 100%, 19%);
-    --discl-importantgreen-fg-clr: hsl(120, 100%, 32%);
-    --discl-warning-bg-clr: hsl(45, 100%, 19%);
-    --discl-warning-fg-clr: hsl(45, 100%, 32%);
-    --discl-info-bg-clr: hsl(200, 100%, 19%);
-    --discl-info-fg-clr: hsl(200, 100%, 32%);
-
-    /* FONT SIZES */
-    --fs-h1: 2.2rem;
-    --fs-h2: 1.7rem;
-    --fs-h3: 1.5rem;
-    --fs-h4: 1.2rem;
-    --fs-hinput: 1.3rem;
-
-    --fs-text: 1rem;
-    --fs-footer: 0.8rem;
-
-    --icon-big: 2.5rem;
-    --icon-small: 1.8rem;
-
-    /* UNDERLINE STYLES */
-    --ul-dotted: linear-gradient(to right, var(--root-ul-sd-clr) 1px, transparent 1px);
-
-
-}
 
 body {
     background-color: var(--root-bg-clr);
     color: var(--root-fg-clr);
-    font-family: "Raleway";
+    font-family: var(--base-font);
     margin-bottom: 40px;
 }
 
@@ -71,24 +15,28 @@ h1 {
     font-weight: bolder;
     font-size: var(--fs-h1);
     margin-top: 15px;
+    color: var(--root-fg-clr);
 }
 
 h2 {
     font-weight: bold;
     font-size: var(--fs-h2);
     margin-top: 10px;
+    color: var(--root-fg-clr);
 }
 
 h3 {
     font-weight: bold;
     font-size: var(--fs-h3);
     margin-top: 10px;
+    color: var(--root-fg-clr);
 }
 
 h4 {
     font-weight: bold;
     font-size: var(--fs-h4);
     margin-top: 10px;
+    color: var(--root-fg-clr);
 }
 
 p {
@@ -102,24 +50,29 @@ hr {
 .content {
     margin: auto;
     padding: 40px 40px 10px 40px;
-    width: 70%;
+    width: 75%;
+    color: var(--root-txt-clr);
 }
 
 .content.mainpage {
     padding: 0 40px;
+    color: var(--root-txt-clr);
 }
 
 code {
-    color: var(--root-fgd-clr);
-    background-color: var(--primary-boxbg-clr);
-    border: 1px solid var(--primary-boxfg-clr);
-    padding: 1px 2px;
+    color: var(--primary-hl-clr);
+    background-color: hsl(213, 30%, 15%);
+    border-radius: 50px;
+    padding: 2px 8px;
     font-family: "Fira Code", monospace;
 }
 
 icon {
     font-family: "Material Symbols Outlined";
     font-size: var(--icon-big);
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400;
 }
 
 .navbar {
@@ -131,12 +84,12 @@ icon {
     display: flex;
     margin: auto;
     height: 100%;
-    width: 65%;
-    border: 2px solid var(--primary-boxfg-clr);
-    background-color: var(--primary-boxbg-clr);
-    border-radius: 40px;
+    width: 100%;
+    border: 1px solid var(--box-overlay-border-clr);
+    background-color: var(--box-overlay-clr);
+    border-radius: var(--box-border-radius);
     vertical-align: middle;
-    padding: 0 20px;
+    padding: 30px 20px;
     align-items: center;
 }
 
@@ -154,7 +107,7 @@ icon {
     width: 100%;
     border: none;
     height: 60%;
-    background-color: var(--primary-boxbg-clr);
+    background: none;
     color: white;
     padding: 10px;
     margin: 0 5px;
@@ -204,7 +157,7 @@ icon {
     background-color: var(--secondary-bg-clr);
     border: 2px none;
     border-left: 4px solid var(--secondary-fg-clr);
-    border-radius: 5px;
+    border-radius: var(--box-border-radius);
 }
 .dev-message {
     display: flex;
@@ -236,17 +189,17 @@ icon {
     width: 95%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--primary-boxbg-clr);
+    background-color: var(--box-clr);
     padding: 5px 5px;
     z-index: 999;
-    border-radius: 20px 20px 0 0;
-    border: 1px solid var(--primary-boxfg-clr);
+    border-radius: var(--box-border-radius) var(--box-border-radius) 0 0;
+    border: 1px solid var(--box-border-clr);
     justify-content: space-between;
     align-items: center;
 }
 
 .control-bar .btn {
-    border-radius: 20px;
+    border-radius: var(--box-border-radius);
     padding: 5px 10px !important;
     transition: 300ms ease;
 }
@@ -263,7 +216,7 @@ icon {
 .user-controls {
     position: relative;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--box-border-radius);
     color: var(--root-fg-clr);
     display: flex;
     justify-content: space-between;
@@ -336,7 +289,7 @@ icon {
     /* Styling */
     width: max-content;
     max-width: 70vw;
-    background-color: var(--primary-boxbg-clr);
+    background-color: var(--box-clr);
     color: white;
     padding: 4px 8px;
     border-radius: 6px;
@@ -413,20 +366,25 @@ textarea {
 }
 
 #search-results {
-    display: block; /* Managed by JS, but default block */
+    display: block;
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
     width: 65%;
-    top: 60px; /* Moved down slightly to clear navbar */
+    top: 80px; /* Moved down to clear navbar */
     max-height: 80vh;
     overflow-y: auto;
 
-    /* purely transparent container, content handles the background */
-    background-color: hsl(from var(--primary-boxbg-clr) h s l / 50%);
-    border: 1px solid hsl(from var(--primary-hl-clr) h s l / 50%);
-    border-radius: 15px;
-    padding: 15px;
+    /* FIX: Use a solid dark color so text behind it doesn't bleed through */
+    background-color: var(--root-box-bg-clr);
+
+    /* FIX: Add a Glow/Shadow so it floats above the page */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+
+    /* FIX: Bright border to match your theme */
+    border: 1px solid var(--primary-hl-clr);
+    border-radius: var(--box-border-radius);
+    padding: 25px;
     z-index: 1000;
 }
 
@@ -480,13 +438,13 @@ textarea {
 }
 
 .info-disclamer {
-    padding: 0.6em;
+    padding: 5px;
     margin: 1em auto;
-    width: 65%;
-    background-color: var(--trietary-bg-clr);
-    border: 2px none;
-    border-left: 4px solid var(--trietary-fg-clr);
-    border-radius: 5px;
+    width: 100%;
+    background-color: hsl(from var(--trietary-bg-clr) h s l / 40%);
+    border: 1px solid hsl(from var(--trietary-fg-clr) h s l / 40%);
+    border-left: 4px solid hsl(from var(--trietary-fg-clr) h s l / 40%);
+    border-radius: var(--box-border-radius);
 }
 .info-message {
     display: flex;
@@ -495,18 +453,20 @@ textarea {
     padding: 0 1rem 0 1rem;
     margin: 0;
 }
-.info-message > icon {
-    flex-shrink: 0;
-}
+
 
 .info-message > p {
     flex-grow: 1;
     margin: 0;
-    font-weight: bold;
 }
 
 .info-message a {
     color: var(--trietary-hl-clr);
+}
+
+.info-message > icon {
+    flex-shrink: 0;
+    background-color: hsl(from var(--trietary-fg-clr) h s l / 40%) !important;
 }
 
 #button-bar {
@@ -540,42 +500,32 @@ textarea {
 /* 1. THE VERTICAL LINE (The Backbone)
    Runs from the top of the item to the bottom, connecting to the next item.
 */
+/* Vertical Line */
 .search-tree li::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-
-    /* Connects perfectly to the item below because we removed margins */
+    top: 0; left: 0;
     height: 100%;
     width: 2px;
+    /* FIX: Ensure this is your bright blue */
     background-color: var(--primary-hl-clr);
-
-    /* Sit behind the curve */
     z-index: 1;
+    opacity: 0.5; /* Slight opacity prevents it from being too distracting */
 }
 
-/* 2. THE CURVE (The Connector)
-   Creates the rounded "L" shape pointing to the button.
-*/
+/* The Connector Curve */
 .search-tree li::after {
     content: "";
     position: absolute;
+    top: 0; left: 0;
+    height: 26px;
+    width: 35px;
 
-    /* Position the curve to align with the center of the text */
-    top: 0;
-    left: 0;
-
-    /* Dimensions make the shape */
-    height: 26px; /* How far down the curve goes (adjust to match button center) */
-    width: 35px;  /* Width: goes UNDER the button to ensure connection */
-
-    /* The Styling */
+    /* FIX: Bright blue borders */
     border-bottom: 2px solid var(--primary-hl-clr);
     border-left: 2px solid var(--primary-hl-clr);
-    border-bottom-left-radius: 15px; /* Modern rounded corner */
+    border-bottom-left-radius: 15px;
 
-    /* IMPORTANT: Hide the sharp corner of the vertical line behind this curve */
     background-color: transparent;
     z-index: 1;
 }
@@ -594,39 +544,37 @@ textarea {
     height: 26px; /* Matches the curve height above */
 }
 
-/* --- The Entries (Links) --- */
 .search-result-link {
     display: flex;
     align-items: center;
     position: relative;
-
-    /* Z-Index 2 ensures button floats ON TOP of the connector lines */
     z-index: 2;
 
-    background-color: var(--primary-boxbg-clr);
-    border: 1px solid var(--primary-boxfg-clr);
-    color: var(--root-fg-clr);
+    /* FIX: Darker, solid background so it reads well */
+    background-color: hsl(228, 32%, 12%);
 
-    padding: 8px 20px;
-    border-radius: 50px; /* Fully rounded pill */
+    /* FIX: Subtle blue border */
+    border: 1px solid var(--box-border-clr);
 
+    /* FIX: Text Color - Use your Highlight color for the text so it glows */
+    color: var(--primary-hl-clr);
+
+    padding: 10px 20px;
+    border-radius: 50px;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
 
-    /* Smooth Animations */
-    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    background-color 0.2s ease,
-    border-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .search-result-link:hover {
+    /* FIX: On Hover, fill with Blue and make text White */
     background-color: var(--primary-bg-clr);
     border-color: var(--primary-hl-clr);
-    color: var(--primary-hl-clr);
+    color: white;
 
-    /* Move right on hover - line stays connected because it's wide enough */
     transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 0 15px var(--primary-sd-clr);
 }
 
 /* --- Folder Labels --- */
@@ -635,17 +583,17 @@ textarea {
     position: relative;
     z-index: 2;
     padding: 5px 12px;
-
-    /* Align with the tree line */
     vertical-align: middle;
 
+    /* FIX: Make folders white/gray to differentiate from blue links */
     color: var(--root-fg-clr);
-    font-family: "Fira Code", monospace;
-    font-size: 0.9em;
-    font-weight: bold;
+    opacity: 0.7;
 
-    background-color: var(--primary-boxbg-clr);
-    border-radius: 8px;
+    font-family: "Fira Code", monospace;
+    font-size: 0.85em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .input-group {
@@ -671,8 +619,8 @@ textarea {
     /* Optional: styling to match input height if you merge them */
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    background-color: var(--primary-boxbg-clr);
-    border: 1px solid var(--primary-boxfg-clr);
+    background-color: var(--box-overlay-clr);
+    border: 1px solid var(--box-overlay-border-clr);
     color: white;
     cursor: pointer;
 }
@@ -699,7 +647,7 @@ textarea {
 
 .custom-modal-content {
     background-color: var(--root-bg-clr);
-    border: 1px solid var(--primary-boxfg-clr);
+    border: 1px solid var(--box-overlay-border-clr);
     width: 90%;
     max-width: 600px;
     height: 80vh; /* Fixed height */
@@ -711,11 +659,11 @@ textarea {
 
 .modal-header {
     padding: 15px 20px;
-    border-bottom: 1px solid var(--primary-boxfg-clr);
+    border-bottom: 1px solid var(--box-overlay-border-clr);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--primary-boxbg-clr);
+    background-color: var(--box-overlay-clr);
     border-radius: 15px 15px 0 0;
 }
 
@@ -741,8 +689,8 @@ textarea {
 
 .modal-footer {
     padding: 15px 20px;
-    border-top: 1px solid var(--primary-boxfg-clr);
-    background-color: var(--primary-boxbg-clr);
+    border-top: 1px solid var(--box-overlay-border-clr);
+    background-color: var(--box-overlay-clr);
     border-radius: 0 0 15px 15px;
     display: flex;
     flex-direction: column;
@@ -778,7 +726,7 @@ textarea {
     position: absolute;
     top: 0; left: 6px; bottom: 0;
     width: 2px;
-    background-color: var(--primary-boxfg-clr);
+    background-color: var(--box-overlay-border-clr);
 }
 .modal-tree li:last-child::before { display: none; }
 
@@ -788,8 +736,8 @@ textarea {
     position: absolute;
     top: 0; left: 6px;
     height: 18px; width: 15px;
-    border-left: 2px solid var(--primary-boxfg-clr);
-    border-bottom: 2px solid var(--primary-boxfg-clr);
+    border-left: 2px solid var(--box-overlay-border-clr);
+    border-bottom: 2px solid var(--box-overlay-border-clr);
     border-bottom-left-radius: 10px;
 }
 
@@ -806,7 +754,7 @@ textarea {
 }
 
 .tree-item:hover {
-    background-color: var(--primary-boxbg-clr);
+    background-color: var(--box-overlay-clr);
 }
 
 .tree-item.selected {
@@ -940,13 +888,122 @@ discl[type="info"]::before {
     content: "info";
 }
 
+.box-row {
+    display: flex;
+    width: 100%;
+}
+
+.box {
+    display: flex;
+    border: 1px solid var(--box-overlay-border-clr);
+    border-radius: var(--box-border-radius);
+    padding: 40px;
+    margin: 10px;
+    width: 100%;
+    background: var(--box-overlay-clr);
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
+.col {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+icon.boxed {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+
+    &.clr1 {
+        color: var(--primary-hl-clr);
+        background-color: var(--primary-sd-clr);
+    }
+
+    &.clr2 {
+        color: var(--secondary-hl-clr);
+        background-color: var(--secondary-sd-clr);
+    }
+
+    &.clr3 {
+        color: var(--trietary-hl-clr);
+        background-color: var(--trietary-sd-clr);
+    }
+}
+
+h2.boxed {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.text.boxed {
+    color: var(--box-clr);
+}
+
+ol {
+    list-style: none;
+    counter-reset: my-list-counter;
+    padding-left: 50px;
+}
+
+ol > li {
+    counter-increment: my-list-counter;
+    position: relative;
+    margin-bottom: 20px;
+    padding-top: 5px;
+}
+
+ol > li:before {
+    position: absolute;
+    left: -45px;
+    top: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-weight: bolder;
+    color: var(--primary-hl-clr, white);
+    background-color: var(--primary-bg-clr, #007bff);
+}
+
+ol[type="A"] > li::before {
+    content: counter(my-list-counter, upper-alpha);
+}
+
+ol > li::before {
+    content: counter(my-list-counter, decimal);
+}
+
+ol > li > :first-child {
+    margin-top: 0;
+}
+
+/* Fix alignment if list first items are p or h4 */
+ol > li > p:first-child,
+ol > li > h4:first-child {
+    margin-top: 0;
+}
+
 @media only screen and (max-width: 500px) {
     :root {
         --fs-unimportant: 0.8rem;
     }
 
     .content {
-        width: 100%;
+        width: 95%;
         padding: 10px;
     }
 
@@ -956,16 +1013,11 @@ discl[type="info"]::before {
 
 
     .content.mainpage {
-        width: 100%;
+        width: 95%;
         padding: 10px;
     }
 
-    .search {
-        width: 98%;
-    }
-
     .dev-disclamer {
-        width: 98%;
         padding: 5px;
         font-size: var(--fs-unimportant);
     }
@@ -990,19 +1042,21 @@ discl[type="info"]::before {
     }
 
     .info-disclamer {
-        width: 98%;
         padding: 5px;
         font-size: var(--fs-unimportant);
     }
 
     .info-message {
         padding: 0;
+        margin: 0;
         font-size: var(--fs-unimportant);
     }
 
     .info-message > p {
         font-size: var(--fs-unimportant);
         font-weight: normal;
+        padding: 0;
+        margin: 0;
     }
 
     .info-message > icon {
@@ -1015,5 +1069,15 @@ discl[type="info"]::before {
 
     discl {
         width: 98%;
+    }
+
+    .box-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .box {
+        width: 100%;
+        margin: 0;
     }
 }

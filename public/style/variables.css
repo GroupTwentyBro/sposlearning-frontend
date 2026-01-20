@@ -1,0 +1,73 @@
+:root {
+    /* ROOT CLRS */
+    --root-bg-clr: hsl(229, 84%, 5%);
+    --root-fg-clr: white;
+    --root-txt-clr: #FFFFFFDD;
+    --root-box-bg-clr: hsl(229, 54%, 8%);
+    --root-box-fg-clr: hsl(228, 32%, 12%);
+    --root-fgd-clr: #AAA;
+    --root-ul-sd-clr: gray;
+    --base-font: "Inter", sans-serif;
+
+    --box-overlay-clr: hsla(0, 0%, 100%, 4%);
+    --box-clr: hsl(228, 45%, 9%);
+    --box-border-clr: hsl(230, 23%, 16%);
+    --box-overlay-fg-clr: hsla(0, 0%, 100%, 50%);
+    --box-overlay-border-clr: hsla(0, 0%, 100%, 8%);
+    --box-border-radius: 20px;
+    --box-txt-clr: #FFFFFFBB;
+
+    /* PRIMARY CLRS */
+    --primary-boxbg-clr: hsl(201, 100%, 12%);
+    --primary-boxfg-clr: hsl(201, 100%, 15%);
+    --primary-sd-clr: hsl(201, 100%, 10%);
+    --primary-bg-clr: hsl(201, 100%, 19%);
+    --primary-fg-clr: hsl(201, 100%, 32%);
+    --primary-hl-clr: hsl(201, 100%, 64%);
+
+    /* SECONDARY CLRS */
+    --secondary-sd-clr: hsl(320, 100%, 10%);
+    --secondary-bg-clr: hsl(320, 100%, 19%);
+    --secondary-fg-clr: hsl(320, 100%, 32%);
+    --secondary-hl-clr: hsl(320, 100%, 64%);
+
+    /* TRIETARY CLRS */
+    --trietary-sd-clr: hsl(175, 84%, 10%);
+    --trietary-bg-clr: hsl(175, 84%, 19%);
+    --trietary-fg-clr: hsl(175, 84%, 32%);
+    --trietary-hl-clr: hsl(175, 84%, 64%);
+
+    /* DISCL ClRS */
+    --discl-def-bg-clr: hsl(0, 0%, 19%);
+    --discl-def-fg-clr: hsl(0, 0%, 32%);
+    --discl-important-bg-clr: hsl(0, 100%, 19%);
+    --discl-important-fg-clr: hsl(0, 100%, 32%);
+    --discl-importantgreen-bg-clr: hsl(120, 100%, 19%);
+    --discl-importantgreen-fg-clr: hsl(120, 100%, 32%);
+    --discl-warning-bg-clr: hsl(45, 100%, 19%);
+    --discl-warning-fg-clr: hsl(45, 100%, 32%);
+    --discl-info-bg-clr: hsl(200, 100%, 19%);
+    --discl-info-fg-clr: hsl(200, 100%, 32%);
+
+    /* FONT SIZES */
+    --fs-h1: 2.2rem;
+    --fs-h2: 1.7rem;
+    --fs-h3: 1.5rem;
+    --fs-h4: 1.2rem;
+    --fs-hinput: 1.3rem;
+
+    --fs-text: 1rem;
+    --fs-footer: 0.8rem;
+
+    --icon-big: 2.5rem;
+    --icon-small: 1.8rem;
+
+    /* UNDERLINE STYLES */
+    --ul-dotted: linear-gradient(to right, var(--root-ul-sd-clr) 1px, transparent 1px);
+}
+
+@media only screen and (max-width: 500px) {
+    :root {
+        --fs-unimportant: 0.8rem;
+    }
+}

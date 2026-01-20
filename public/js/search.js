@@ -1,82 +1,103 @@
-// public/js/search.js
-
 import {app, auth} from './firebaseConfig.js';
-import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
-// --- Global cache for all pages ---
+// --- Global cache ---
 const db = getFirestore(app);
 let allPages = [];
 let currentPage = null;
+let currentUser = null;
 
-// --- Get Elements from the HTML ---
+// --- Elements ---
 const searchInput = document.getElementById('search-input');
 const welcomeMessage = document.getElementById('welcome-message');
-// const disclamerDev = document.getElementById('disclamer-dev');
 const disclamerInfo = document.getElementById('disclamer-info');
 const searchResultsContainer = document.getElementById('search-results');
 
+/**
+ * Helper to safely extract access level from messy data
+ */
+function getAccessLevel(data) {
+    // Check all common naming conventions
+    const rawValue = data['access-level'] || data['accessLevel'] || data['access_level'] || 'public';
+    // clean it up (e.g. "Admin " -> "admin")
+    return String(rawValue).toLowerCase().trim();
+}
 
 /**
- * 1. Fetches all pages from Firestore on page load.
+ * 1. Fetch Pages
  */
 async function fetchAllPages() {
     try {
         const querySnapshot = await getDocs(collection(db, 'pages'));
-
+        allPages = []; // Reset to prevent duplicates on re-runs
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();
 
             if (data.type !== 'redirection') {
+                const detectedAccess = getAccessLevel(data);
+
+                // DEBUG LOG: Check your console to see what the code actually finds
+                if(detectedAccess === 'admin') {
+                    console.log(`Protected Page found: ${data.title}`);
+                }
+
                 allPages.push({
-                    title: data.title, // The new human-readable title
-                    path: data.fullPath, // The full URL path
-                    // Only add content if it's text, not a file list
+                    title: data.title,
+                    path: data.fullPath,
+                    accessLevel: detectedAccess, // stored as 'admin' or 'public'
                     content: (data.type === 'markdown' || data.type === 'html') ? data.content.toLowerCase() : ''
                 });
             }
         });
 
-        console.log(`Loaded ${allPages.length} pages for search.`);
+        console.log(`Loaded ${allPages.length} pages.`);
         searchInput.placeholder = "Hledej v zápisech...";
         searchInput.disabled = false;
 
     } catch (err) {
         console.error("Failed to fetch pages:", err);
-        searchInput.placeholder = "Chyba při načítání...";
     }
 }
 
 /**
- * 2. Handles the search as the user types
+ * 2. Handle Search
  */
 function handleSearch(e) {
     const searchTerm = e.target.value.toLowerCase();
 
+    // Basic UI Toggle
     if (searchTerm.length < 2) {
         welcomeMessage.style.display = 'block';
-        // disclamerDev.style.display = 'block';
-        disclamerInfo.style.display = 'block';
+        if(disclamerInfo) disclamerInfo.style.display = 'block';
         searchResultsContainer.style.display = 'none';
         searchResultsContainer.innerHTML = '';
         return;
     }
 
-    const results = allPages.filter(page =>
-        page.path.toLowerCase().includes(searchTerm) // || // Search the title
-        // page.content.includes(searchTerm) // Search the content
-    );
+    // --- KEY FILTERING LOGIC ---
+    const results = allPages.filter(page => {
+        // 1. Access Check
+        if (page.accessLevel === 'admin') {
+            // If user is NOT logged in, hide this page immediately
+            if (!currentUser) return false;
+        }
+
+        // 2. Search Term Check
+        return page.path.toLowerCase().includes(searchTerm);
+        // || page.content.includes(searchTerm) // Uncomment to search content too
+    });
 
     welcomeMessage.style.display = 'none';
-    // disclamerDev.style.display = 'none';
-    disclamerInfo.style.display = 'none';
+    if(disclamerInfo) disclamerInfo.style.display = 'none';
     searchResultsContainer.style.display = 'block';
+
     renderResults(results);
 }
 
 /**
- * 3. Renders the list of results
+ * 3. Render Results (Tree View)
  */
 function renderResults(results) {
     searchResultsContainer.innerHTML = '';
@@ -86,14 +107,10 @@ function renderResults(results) {
         return;
     }
 
-    // 1. Convert flat results to a tree structure
     const treeRoot = buildTree(results);
-
-    // 2. Generate DOM from tree
     const treeContainer = document.createElement('ul');
     treeContainer.className = 'search-tree';
 
-    // Append all top-level nodes
     Object.keys(treeRoot).sort().forEach(key => {
         treeContainer.appendChild(createTreeDOM(treeRoot[key]));
     });
@@ -105,17 +122,13 @@ function buildTree(results) {
     const root = {};
 
     results.forEach(page => {
-        // Split path by '/', filter out empty strings
         const parts = page.path.split('/').filter(p => p);
-
         let currentLevel = root;
-        let currentPathAccumulator = ''; // To reconstruct the full path as we go deep
+        let currentPathAccumulator = '';
 
         parts.forEach((part, index) => {
-            // Reconstruct the path for the current level (e.g., "prg" then "prg/arrays")
             currentPathAccumulator += (index > 0 ? '/' : '') + part;
 
-            // Create node if it doesn't exist
             if (!currentLevel[part]) {
                 currentLevel[part] = {
                     children: {},
@@ -123,21 +136,22 @@ function buildTree(results) {
                     pageData: null
                 };
 
-                // --- THE FIX IS HERE ---
-                // Even if "prg" wasn't in the search results, check if it exists in our global database.
-                // If it does, attach the data so it becomes a clickable link.
+                // Check if this folder is actually a page itself
                 const parentPageExists = allPages.find(p => p.path === currentPathAccumulator);
+
+                // If the parent folder is a page, ensure we respect its privacy too
                 if (parentPageExists) {
-                    currentLevel[part].pageData = parentPageExists;
+                    const isHidden = (parentPageExists.accessLevel === 'admin' && !currentUser);
+                    if (!isHidden) {
+                        currentLevel[part].pageData = parentPageExists;
+                    }
                 }
             }
 
-            // Ensure the specific result we found is definitely set (overwrites the check above if needed)
             if (index === parts.length - 1) {
                 currentLevel[part].pageData = page;
             }
 
-            // Move deeper
             currentLevel = currentLevel[part].children;
         });
     });
@@ -145,31 +159,28 @@ function buildTree(results) {
     return root;
 }
 
-/**
- * Helper: Recursively creates DOM elements for the tree
- */
 function createTreeDOM(node) {
     const li = document.createElement('li');
-
-    // 1. Create the content for this node
     let contentElement;
 
     if (node.pageData) {
-        // It's a clickable page
         contentElement = document.createElement('a');
         contentElement.href = `/${node.pageData.path}`;
         contentElement.className = 'search-result-link';
         contentElement.textContent = node.pageData.title;
+
+        // Optional: Visual indicator for admins so they know it's a hidden page
+        if(node.pageData.accessLevel === 'admin') {
+            contentElement.innerHTML += ' <span style="font-size:0.8em; color:red;">(Admin)</span>';
+        }
     } else {
-        // It's just a folder structure (intermediate path not found in search results)
         contentElement = document.createElement('span');
         contentElement.className = 'search-result-folder';
-        contentElement.textContent = node.name; // Use the path segment name
+        contentElement.textContent = node.name;
     }
 
     li.appendChild(contentElement);
 
-    // 2. If it has children, recurse
     const childKeys = Object.keys(node.children);
     if (childKeys.length > 0) {
         const ul = document.createElement('ul');
@@ -184,68 +195,47 @@ function createTreeDOM(node) {
 
 function setupAdminTools() {
     const adminBar = document.getElementById('admin-bar');
-    const logoutButton = document.getElementById('logout-button');
+    if(!adminBar) return; // Safety if admin bar doesn't exist on page
 
-    // 1. Render the "Always Visible" part (The Home Button)
-    // We use a container 'admin-controls' to keep styling consistent
-    adminBar.innerHTML = `
-        <div class="admin-controls">
-            
-            <div id="logged-in-buttons" style="display: flex; gap: 10px; align-items: center;"></div>
-        </div>
-    `;
+    adminBar.innerHTML = `<div class="admin-controls"><div id="logged-in-buttons" style="display: flex; gap: 10px; align-items: center;"></div></div>`;
 
-    // 2. Check Auth state to add the rest
     const auth = getAuth(app);
     onAuthStateChanged(auth, (user) => {
-        const loggedInContainer = document.getElementById('logged-in-buttons');
+        currentUser = user; // UPDATE GLOBAL STATE
+        console.log("Auth State Changed. User is:", user ? "Logged In" : "Logged Out");
 
+        // Trigger a re-search if the user types are already there, so results update instantly upon login/logout
+        if(searchInput.value.length >= 2) {
+            searchInput.dispatchEvent(new Event('input'));
+        }
+
+        const loggedInContainer = document.getElementById('logged-in-buttons');
         if (user) {
-            // User is logged in -> Add the extra buttons
             let editButton = '';
             let deleteButton = '';
-
-            // Only show Edit/Delete if we are on a valid page (currentPage exists)
-            if (currentPage) {
-                // Edit Button logic
-                if (currentPage.data.type === 'markdown' || currentPage.data.type === 'html') {
-                    editButton = `<a href="/admin/edit.html?path=${currentPage.data.fullPath}" class="btn btn-sm btn-primary" id="edit-button">Upravit</a>`;
-                }
-                // Delete Button logic
-                deleteButton = `<button id="delete-button" class="btn btn-sm btn-danger">Smazat</button>`;
-            }
-
-            // Inject buttons
+            // (Your existing button logic here...)
             loggedInContainer.innerHTML = `
-                ${editButton}
-                ${deleteButton}
-                <a href="/admin/dashboard" class="btn btn-sm btn-white">Dashboard</a>
-                <button class="btn btn-sm btn-danger" id="logout-button">Logout</button>
+            <a href="/admin/dashboard" className="btn btn-sm btn-white">Dashboard</a>
+            <button class="btn btn-sm btn-danger" id="logout-button">Logout</button>
             `;
 
-            // Add event listener for delete (if it exists)
-            const delBtn = document.getElementById('delete-button');
-            if (delBtn) {
-                delBtn.addEventListener('click', handleDeletePage);
-            }
+            document.getElementById('logout-button').addEventListener('click', () => {
+                signOut(auth)
+                    .then(() => {
+                        console.log("User signed out successfully");
+                        // The onAuthStateChanged listener will trigger automatically and update UI
+                    })
+                    .catch((error) => {
+                        console.error("Error signing out:", error);
+                    });
+            });
         } else {
-            // User is not logged in -> Clear the container just in case
             loggedInContainer.innerHTML = '';
-        }
-    });
-
-
-    logoutButton.addEventListener('click', async () => {
-        try {
-            await signOut(auth);
-            console.log('User logged out.');
-        } catch (error) {
-            console.error('Logout error:', error);
         }
     });
 }
 
-// --- 4. Initialize the search functionality ---
+// --- Initialize ---
 async function initializePage() {
     setupAdminTools();
 }

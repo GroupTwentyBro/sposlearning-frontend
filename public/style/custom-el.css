@@ -1,0 +1,218 @@
+/* Disclamers */
+discl {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    padding: 0.6em;
+    margin: 0.5em 1em 0.5em 0;
+    width: 65%;
+    background-color: var(--discl-def-bg-clr);
+    border: 2px none;
+    border-left: 4px solid var(--discl-def-fg-clr);
+    border-radius: 5px;
+}
+
+discl::before {
+    content: "question_mark";
+    font-family: "Material Symbols Outlined";
+    font-size: 1.5em;
+}
+
+discl[type="important"], discl[type="important-red"] {
+    background-color: var(--discl-important-bg-clr);
+    border-color: var(--discl-important-fg-clr);
+}
+
+discl[type="important"]::before, discl[type="important-red"]::before {
+    content: "error";
+}
+
+discl[type="important-green"] {
+    background-color: var(--discl-importantgreen-bg-clr);
+    border-color: var(--discl-importantgreen-fg-clr);
+}
+
+discl[type="important-green"]::before {
+    content: "error";
+}
+
+discl[type="warning"], discl[type="warn"] {
+    background-color: var(--discl-warning-bg-clr);
+    border-color: var(--discl-warning-fg-clr);
+}
+
+discl[type="warning"]::before, discl[type="warn"]::before {
+    content: "warning";
+}
+
+discl[type="info"] {
+    background-color: var(--discl-info-bg-clr);
+    border-color: var(--discl-info-fg-clr);
+}
+
+discl[type="info"]::before {
+    content: "info";
+}
+
+.dev-disclamer, .info-disclamer {
+    margin: 1em auto;
+    border-radius: var(--box-border-radius);
+    border: 2px none;
+}
+
+.dev-disclamer {
+    padding: 0.6em;
+    width: 65%;
+    background-color: var(--secondary-bg-clr);
+    border-left: 4px solid var(--secondary-fg-clr);
+}
+
+.dev-message, .info-message {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+}
+
+.dev-message {
+    padding: 0.75rem 1rem 0 1rem;
+}
+
+.dev-message > icon, .info-message > icon {
+    flex-shrink: 0;
+}
+
+.dev-message > p, .info-message > p {
+    flex-grow: 1;
+    margin: 0;
+}
+
+.dev-message > p {
+    font-weight: bold;
+}
+
+.ver-tag {
+    color: var(--secondary-hl-clr);
+    margin: 0;
+    padding: 5px;
+    font-size: var(--fs-footer);
+}
+
+.info-disclamer {
+    padding: 20px;
+    width: 100%;
+    background-color: hsl(from var(--trietary-bg-clr) h s l / 40%);
+    border: 1px solid hsl(from var(--trietary-fg-clr) h s l / 40%);
+    border-left: 4px solid hsl(from var(--trietary-fg-clr) h s l / 40%);
+}
+
+.info-message {
+    padding: 0 1rem 0 1rem;
+}
+
+.info-message a {
+    color: var(--trietary-hl-clr);
+}
+
+.info-message > icon {
+    background-color: hsl(from var(--trietary-fg-clr) h s l / 40%) !important;
+}
+/* ------------------------------------------------------ */
+
+/* Ordered lists */
+ol {
+    list-style: none;
+    counter-reset: my-list-counter;
+    padding-left: 50px;
+}
+
+ol > li {
+    counter-increment: my-list-counter;
+    position: relative;
+    margin-bottom: 20px;
+    padding-top: 5px;
+}
+
+ol > li:before {
+    position: absolute;
+    left: -45px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-weight: bolder;
+    color: var(--primary-hl-clr, white);
+    background-color: var(--primary-bg-clr, #007bff);
+}
+
+ol[type="A"] > li::before {
+    content: counter(my-list-counter, upper-alpha);
+}
+
+ol > li::before {
+    content: counter(my-list-counter, decimal);
+}
+
+ol > li > :first-child {
+    margin-top: 0;
+}
+
+ol > li > p:first-child,
+ol > li > h4:first-child {
+    margin-top: 0;
+}
+/* --------------------------------------------- */
+
+/* Custom boxes */
+.box-row {
+    display: flex;
+    width: 100%;
+}
+
+.box {
+    display: flex;
+    border: 1px solid var(--box-overlay-border-clr);
+    border-radius: var(--box-border-radius);
+    padding: 40px;
+    margin: 10px;
+    flex: 1;
+    background: var(--box-overlay-clr);
+}
+
+icon.boxed {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+icon.boxed.clr1 {
+    color: var(--primary-hl-clr);
+    background-color: var(--primary-sd-clr);
+}
+
+icon.boxed.clr2 {
+    color: var(--secondary-hl-clr);
+    background-color: var(--secondary-sd-clr);
+}
+
+icon.boxed.clr3 {
+    color: var(--trietary-hl-clr);
+    background-color: var(--trietary-sd-clr);
+}
+
+h2.boxed {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.text.boxed {
+    color: var(--box-txt-clr);
+}
+/* ----------------------------------------------- */

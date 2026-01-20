@@ -1,0 +1,58 @@
+@media only screen and (max-width: 500px) {
+    :root {
+        --fs-unimportant: 0.8rem;
+    }
+
+    .content, .content.mainpage {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .content img {
+        width: 100%;
+    }
+
+    .dev-disclamer, .info-disclamer {
+        width: 98%;
+        padding: 5px;
+        font-size: var(--fs-unimportant);
+    }
+
+    .dev-message, .info-message {
+        padding: 0;
+        font-size: var(--fs-unimportant);
+    }
+
+    .info-message {
+        margin: 0;
+    }
+
+    .dev-message > p, .info-message > p {
+        font-size: var(--fs-unimportant);
+        font-weight: normal;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dev-message > icon, .info-message > icon, .ver-tag {
+        display: none;
+    }
+
+    #search-results {
+        width: 95%;
+    }
+
+    discl {
+        width: 98%;
+    }
+
+    .box-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .box {
+        width: 100%;
+        margin: 0;
+    }
+}
