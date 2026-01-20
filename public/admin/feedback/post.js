@@ -43,7 +43,7 @@ async function loadPost() {
         }
 
         contentArea.innerHTML = `
-            <h2>${escapeHtml(data.type)}</h2>
+            <h2>${escapeHtml(data.page)} - ${escapeHtml(data.title)}</h2>
             <div class="meta-row">
                 <strong>From:</strong> ${escapeHtml(data.name)} &lt;${escapeHtml(data.contact)}&gt;<br>
                 <strong>Date:</strong> ${date}<br>

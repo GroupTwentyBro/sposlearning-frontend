@@ -43,7 +43,7 @@ async function loadFeedback() {
             a.innerHTML = `
                 <div class="feedback-header">
                     <div class="feedback-title">
-                        ${escapeHtml(data.type)} - ${escapeHtml(data.name)}
+                        ${escapeHtml(data.page)} - ${escapeHtml(data.title)}
                         ${data.resolved ? '<span class="badge badge-success ml-2">Resolved</span>' : ''}
                     </div>
                     <div class="feedback-meta">

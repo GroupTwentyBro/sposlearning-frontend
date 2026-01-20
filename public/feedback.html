@@ -11,40 +11,38 @@
 <body>
 <div class="control-bar">
     <div class="user-controls">
-        <a href="/" class="btn btn-sm btn-primary">Home</a>
+        <a href="/" class="btn btn-sm btn-primary">Domů</a>
     </div>
 </div>
 
 <div class="content">
-    <h1>Send Feedback</h1>
-    <p>Found a bug or have a suggestion? Let us know.</p>
+    <h1>Zpětná vazba</h1>
+    <p>Našel jsi chybu nebo chceš něco vylepšit? Dej nám vědět.</p>
     <hr>
 
     <form id="feedback-form">
-        <input type="hidden" id="feedback-page">
+        <div class="form-group">
+            <label for="feedback-title">Název</label>
+            <input type="text" class="form-control" id="feedback-title" placeholder="Chyba v tématu X">
+        </div>
 
         <div class="form-group">
-            <label for="feedback-name">Name (Optional)</label>
+            <label for="feedback-page">Stránka</label>
+            <input type="text" class="form-control" id="feedback-page" placeholder="/mat/mnoziny">
+        </div>
+
+        <div class="form-group">
+            <label for="feedback-name">Jméno</label>
             <input type="text" class="form-control" id="feedback-name" placeholder="Your Name">
         </div>
 
         <div class="form-group">
-            <label for="feedback-contact">Contact Email (Optional)</label>
+            <label for="feedback-contact">Kontaktní email</label>
             <input type="email" class="form-control" id="feedback-contact" placeholder="name@example.com">
         </div>
 
         <div class="form-group">
-            <label for="feedback-type">Feedback Type</label>
-            <select class="form-control" id="feedback-type">
-                <option value="Suggestion">Suggestion</option>
-                <option value="Bug">Website Bug</option>
-                <option value="Content Error">Content Error</option>
-                <option value="Other">Other</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="feedback-message">Message</label>
+            <label for="feedback-message">Zpráva</label>
             <textarea class="form-control" id="feedback-message" rows="5" required placeholder="Describe your feedback..."></textarea>
         </div>
 

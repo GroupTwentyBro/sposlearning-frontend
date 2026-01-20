@@ -11,6 +11,7 @@ import { getFirestore, collection, query, where, getDoc, getDocs, doc, deleteDoc
 const db = getFirestore(app);
 const contentContainer = document.getElementById('wiki-content-container');
 
+
 // This will store the loaded page's ID and data
 let currentPage = null;
 
@@ -309,13 +310,17 @@ function requestPassword() {
     });
 }
 
+function setupFeedbackLink() {
+    const feedbackLink = document.getElementById("feedback-button");
+    if (feedbackLink && !feedbackLink.href.includes('?page=' + window.location.pathname)) {
+        feedbackLink.href += window.location.pathname;
+    }
+}
 
-// --- NEW Run the app ---
-// We create an async function to make sure we wait
-// for the page to load BEFORE we try to add the admin buttons.
 async function initializePage() {
-    await loadContent(); // 1. Wait for page data to load (and set currentPage)
-    setupAdminTools(); // 2. Now set up admin tools, which depend on currentPage
+    await loadContent();
+    setupAdminTools();
+    setupFeedbackLink();
 }
 
 initializePage();

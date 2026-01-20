@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "spos-learning",
+    "site": "sposldev",
     "public": "public",
     "cleanUrls": true,
     "ignore": [

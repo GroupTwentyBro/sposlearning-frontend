@@ -10,7 +10,7 @@ const pageInput = document.getElementById('feedback-page');
 
 // Pre-fill page context if available in URL
 const urlParams = new URLSearchParams(window.location.search);
-const relatedPage = urlParams.get('page');
+const relatedPage = urlParams.get("page");
 if (relatedPage) pageInput.value = relatedPage;
 
 form.addEventListener('submit', async (e) => {
@@ -32,9 +32,10 @@ form.addEventListener('submit', async (e) => {
 
         // 2. Save to Firestore
         await addDoc(collection(db, 'feedback'), {
+            title: document.getElementById('feedback-title').value,
+            page: document.getElementById('feedback-page').value,
             name: document.getElementById('feedback-name').value || 'Anonymous',
             contact: document.getElementById('feedback-contact').value || 'Not provided',
-            type: document.getElementById('feedback-type').value,
             message: document.getElementById('feedback-message').value,
             relatedPage: pageInput.value || 'General',
             ip: ipAddress,
