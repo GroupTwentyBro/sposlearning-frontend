@@ -215,7 +215,6 @@ icon {
 
 .user-controls {
     position: relative;
-    background-color: hsl(198, 31%, 12%);
     border: none;
     border-radius: var(--box-border-radius);
     color: var(--root-fg-clr);
@@ -223,6 +222,7 @@ icon {
     justify-content: space-between;
     align-items: center;
     font-size: 1.2rem;
+    gap: 10px;
 }
 
 .btn-admin {
