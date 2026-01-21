@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - SPOŠLearning</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/style/variables-dark.css">
+    <link id="theme-link" href="/style/variables-dark.css" rel="stylesheet">
     <link rel="stylesheet" href="/style/base.css">
     <link rel="stylesheet" href="/style/components.css">
     <link rel="stylesheet" href="/style/custom-el.css">
@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 </head>
 <body>
@@ -80,7 +80,7 @@
 
     // Initial setup
     if (currentTheme === "dark") {
-        themeLink.href = "style/variables-dark.css";
+        themeLink.href = "/style/variables-dark.css";
         updateButtonState("dark");
     }
 
@@ -90,12 +90,12 @@
         // Toggle Logic
         if (themeLink.href.includes("variables-light.css")) {
             // Switch to Dark
-            themeLink.href = "style/variables-dark.css";
+            themeLink.href = "/style/variables-dark.css";
             localStorage.setItem("theme", "dark");
             updateButtonState("dark");
         } else {
             // Switch to Light
-            themeLink.href = "style/variables-light.css";
+            themeLink.href = "/style/variables-light.css";
             localStorage.setItem("theme", "light");
             updateButtonState("light");
         }
@@ -105,7 +105,7 @@
     // Run this immediately to prevent flash of wrong theme
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
-        document.getElementById("theme-link").href = "style/variables-dark.css";
+        document.getElementById("theme-link").href = "/style/variables-dark.css";
     }
 </script>
 </body>
