@@ -3,6 +3,7 @@ body {
     color: var(--root-fg-clr);
     font-family: var(--base-font);
     margin-bottom: 40px;
+    transition: background 0.5s, color 0.5s;
 }
 
 a {
@@ -52,7 +53,7 @@ input {
 
 code {
     color: var(--primary-hl-clr);
-    background-color: hsl(213, 30%, 15%);
+    background-color: var(--code-bg-clr);
     border-radius: 20px;
     padding: 2px 8px;
     font-family: "Fira Code", monospace;
@@ -117,4 +118,56 @@ spacer {
     display: flex;
     height: 100%;
     flex-direction: column;
+}
+
+#theme-toggle {
+    position: fixed;
+    top: 0;
+    right: 20px;
+    border: none;
+    background: none;
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    color: var(--root-fg-clr);
+}
+
+/* Container must be relative so children can be absolute */
+.icon-stack {
+    position: relative;
+    width: 20px;  /* Adjust based on your icon size */
+    height: 20px;
+    display: inline-block;
+}
+
+/* Common style for both icons */
+.icon-stack icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade */
+}
+
+/* DEFAULT STATE (Light Theme): */
+/* Moon is visible */
+.icon-moon {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+/* Sun is hidden */
+.icon-sun {
+    opacity: 0;
+    transform: rotate(90deg); /* Start slightly rotated for effect */
+}
+
+/* DARK STATE (When button has 'is-dark' class): */
+/* Hide Moon */
+#theme-toggle.is-dark .icon-moon {
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+/* Show Sun */
+#theme-toggle.is-dark .icon-sun {
+    opacity: 1;
+    transform: rotate(0deg);
 }

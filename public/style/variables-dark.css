@@ -7,6 +7,7 @@
     --root-box-fg-clr: hsl(228, 32%, 12%);
     --root-fgd-clr: #AAA;
     --root-ul-sd-clr: gray;
+    --code-bg-clr: hsl(213, 30%, 15%);
     --base-font: "Inter", sans-serif;
 
     --box-overlay-clr: hsla(0, 0%, 100%, 4%);

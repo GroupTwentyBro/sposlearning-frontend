@@ -7,7 +7,7 @@
 
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="style/variables.css" rel="stylesheet">
+    <link id="theme-link" href="style/variables-light.css" rel="stylesheet">
     <link href="style/base.css" rel="stylesheet">
     <link href="style/components.css" rel="stylesheet">
     <link href="style/search.css" rel="stylesheet">
@@ -100,6 +100,14 @@
             </div>
         </div>
 
+        <button id="theme-toggle" class="btn btn-icon">
+            <div class="icon-stack">
+                <icon class="icon-moon">dark_mode</icon>
+
+                <icon class="icon-sun">light_mode</icon>
+            </div>
+        </button>
+
         <!-- Search results, hidden by default -->
         <div id="search-results" style="display: none;"></div>
     </div>
@@ -107,5 +115,51 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="/js/firebaseConfig.js" type="module"></script>
     <script src="/js/search.js" type="module"></script>
+    <script>
+        const btn = document.getElementById("theme-toggle");
+        const themeLink = document.getElementById("theme-link");
+
+        // 1. Check local storage on load
+        const currentTheme = localStorage.getItem("theme");
+
+        // Function to apply the visual state of the button
+        function updateButtonState(theme) {
+            if (theme === "dark") {
+                btn.classList.add("is-dark"); // This triggers the CSS fade
+            } else {
+                btn.classList.remove("is-dark");
+            }
+        }
+
+        // Initial setup
+        if (currentTheme === "dark") {
+            themeLink.href = "style/variables-dark.css";
+            updateButtonState("dark");
+        }
+
+        // 2. Button Click Event
+        btn.addEventListener("click", function() {
+
+            // Toggle Logic
+            if (themeLink.href.includes("variables-light.css")) {
+                // Switch to Dark
+                themeLink.href = "style/variables-dark.css";
+                localStorage.setItem("theme", "dark");
+                updateButtonState("dark");
+            } else {
+                // Switch to Light
+                themeLink.href = "style/variables-light.css";
+                localStorage.setItem("theme", "light");
+                updateButtonState("light");
+            }
+        });
+    </script>
+    <script>
+        // Run this immediately to prevent flash of wrong theme
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            document.getElementById("theme-link").href = "style/variables-dark.css";
+        }
+    </script>
 </body>
 </html>

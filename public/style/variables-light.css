@@ -7,6 +7,7 @@
     --root-box-fg-clr: hsl(228, 32%, 12%);
     --root-fgd-clr: #AAA;
     --root-ul-sd-clr: gray;
+    --code-bg-clr: hsl(213, 5%, 85%);
     --base-font: "Inter", sans-serif;
 
     --box-overlay-clr: hsla(0, 0%, 0%, 4%);
@@ -20,22 +21,22 @@
     /* PRIMARY CLRS */
     --primary-boxbg-clr: hsl(201, 100%, 12%);
     --primary-boxfg-clr: hsl(201, 100%, 15%);
-    --primary-sd-clr: hsl(201, 100%, 64%);
+    --primary-sd-clr: hsla(201, 100%, 64%, 60%);
     --primary-bg-clr: hsl(201, 100%, 32%);
     --primary-fg-clr: hsl(201, 100%, 19%);
-    --primary-hl-clr: hsl(201, 100%, 10%);
+    --primary-hl-clr: hsl(201, 100%, 15%);
 
     /* SECONDARY CLRS */
-    --secondary-sd-clr: hsl(320, 100%, 10%);
-    --secondary-bg-clr: hsl(320, 100%, 19%);
-    --secondary-fg-clr: hsl(320, 100%, 32%);
-    --secondary-hl-clr: hsl(320, 100%, 64%);
+    --secondary-hl-clr: hsl(320, 100%, 10%);
+    --secondary-fg-clr: hsl(320, 100%, 19%);
+    --secondary-bg-clr: hsl(320, 100%, 32%);
+    --secondary-sd-clr: hsl(320, 100%, 64%);
 
     /* TRIETARY CLRS */
-    --trietary-sd-clr: hsl(175, 84%, 10%);
-    --trietary-bg-clr: hsl(175, 84%, 19%);
-    --trietary-fg-clr: hsl(175, 84%, 32%);
-    --trietary-hl-clr: hsl(175, 84%, 64%);
+    --trietary-hl-clr: hsl(175, 84%, 15%);
+    --trietary-fg-clr: hsl(175, 84%, 19%);
+    --trietary-bg-clr: hsl(175, 84%, 32%);
+    --trietary-sd-clr: hsla(175, 84%, 64%, 60%);
 
     /* DISCL ClRS */
     --discl-def-bg-clr: hsl(0, 0%, 19%);
