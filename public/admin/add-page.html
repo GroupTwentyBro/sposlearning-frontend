@@ -136,10 +136,63 @@
         </div>
     </div>
 </div>
+<button id="theme-toggle" class="btn btn-icon">
+    <div class="icon-stack">
+        <icon class="icon-moon">dark_mode</icon>
+
+        <icon class="icon-sun">light_mode</icon>
+    </div>
+</button>
 <!-- Add Bootstrap's JS for tab functionality -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+    const btn = document.getElementById("theme-toggle");
+    const themeLink = document.getElementById("theme-link");
+
+    // 1. Check local storage on load
+    const currentTheme = localStorage.getItem("theme");
+
+    // Function to apply the visual state of the button
+    function updateButtonState(theme) {
+        if (theme === "dark") {
+            btn.classList.add("is-dark"); // This triggers the CSS fade
+        } else {
+            btn.classList.remove("is-dark");
+        }
+    }
+
+    // Initial setup
+    if (currentTheme === "dark") {
+        themeLink.href = "style/variables-dark.css";
+        updateButtonState("dark");
+    }
+
+    // 2. Button Click Event
+    btn.addEventListener("click", function() {
+
+        // Toggle Logic
+        if (themeLink.href.includes("variables-light.css")) {
+            // Switch to Dark
+            themeLink.href = "style/variables-dark.css";
+            localStorage.setItem("theme", "dark");
+            updateButtonState("dark");
+        } else {
+            // Switch to Light
+            themeLink.href = "style/variables-light.css";
+            localStorage.setItem("theme", "light");
+            updateButtonState("light");
+        }
+    });
+</script>
+<script>
+    // Run this immediately to prevent flash of wrong theme
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+        document.getElementById("theme-link").href = "style/variables-dark.css";
+    }
+</script>
 
 <script src="add-page.js" type="module"></script>
 </body>
