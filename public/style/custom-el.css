@@ -216,3 +216,37 @@ h2.boxed {
     color: var(--box-txt-clr);
 }
 /* ----------------------------------------------- */
+
+.data-table {
+    width: 100%;
+    /* 'separate' is needed for border-radius to work on tables */
+    border-collapse: separate;
+    border-spacing: 0;
+
+    /* Your variables */
+    background-color: var(--box-overlay-clr);
+    border: 1px solid var(--box-overlay-border-clr);
+    border-radius: 20px;
+
+    /* Clips the content to the rounded corners */
+    overflow: hidden;
+    text-align: left;
+    font-family: sans-serif;
+}
+
+.data-table th,
+.data-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--box-overlay-border-clr);
+}
+
+.data-table th {
+    font-weight: 700;
+    /* Adds a subtle darkening/lightening to the header based on your theme */
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+/* Remove the bottom border from the last row to avoid a double border effect */
+.data-table tr:last-child td {
+    border-bottom: none;
+}
