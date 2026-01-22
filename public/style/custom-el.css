@@ -219,7 +219,6 @@ h2.boxed {
 
 .data-table {
     width: 100%;
-    /* 'separate' is needed for border-radius to work on tables */
     border-collapse: separate;
     border-spacing: 0;
 
@@ -228,7 +227,6 @@ h2.boxed {
     border: 1px solid var(--box-overlay-border-clr);
     border-radius: 20px;
 
-    /* Clips the content to the rounded corners */
     overflow: hidden;
     text-align: left;
     font-family: sans-serif;
@@ -238,15 +236,29 @@ h2.boxed {
 .data-table td {
     padding: 16px 20px;
     border-bottom: 1px solid var(--box-overlay-border-clr);
+    vertical-align: middle; /* Aligns content to the middle */
 }
 
 .data-table th {
     font-weight: 700;
-    /* Adds a subtle darkening/lightening to the header based on your theme */
     background-color: rgba(128, 128, 128, 0.1);
 }
 
-/* Remove the bottom border from the last row to avoid a double border effect */
+/* Remove bottom border from last row */
 .data-table tr:last-child td {
     border-bottom: none;
+}
+
+/* Styling for inline code (first and second column) */
+.data-table code {
+    font-family: monospace;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: #d63384; /* Optional: generic syntax highlight color */
+}
+
+/* Styling for code blocks in the examples column */
+.data-table pre {
+    margin: 0; /* Resets default browser margins for pre tags */
 }
