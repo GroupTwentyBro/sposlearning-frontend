@@ -15,7 +15,7 @@
 
     <!-- Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
+    <link href="/style/highlightjs.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <!-- Fonts -->
@@ -128,6 +128,9 @@
         if (savedTheme === "dark") {
             document.getElementById("theme-link").href = "/style/variables-dark.css";
         }
+    </script>
+    <script>
+        hljs.highlightAll();
     </script>
 </body>
 </html>

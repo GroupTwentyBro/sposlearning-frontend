@@ -1,0 +1,83 @@
+/* --- VISUAL STUDIO DARK THEME FOR HIGHLIGHT.JS --- */
+
+/* 1. Basic Text & Background */
+.hljs {
+    display: block;
+    overflow-x: auto;
+    /* Use your defined background variable to match your site */
+    background: var(--code-bg-clr);
+    /* Standard VS Dark text color */
+    color: #d4d4d4;
+    padding: 1em;
+}
+
+/* 2. Keywords (public, void, class, return, if) -> VS Blue */
+.hljs-keyword,
+.hljs-literal,
+.hljs-symbol,
+.hljs-name {
+    color: #569cd6;
+}
+
+/* 3. HTML/XML Tags (in case you use them) -> VS Blue/Gray */
+.hljs-tag {
+    color: #808080;
+}
+.hljs-tag .hljs-name {
+    color: #569cd6;
+}
+.hljs-tag .hljs-attr {
+    color: #9cdcfe;
+}
+
+/* 4. Strings ("Hello World") -> VS Orange/Brown */
+.hljs-string {
+    color: #d69d85;
+}
+
+/* 5. Types / Classes (Console, Program, List) -> VS Teal */
+.hljs-type,
+.hljs-title,
+.hljs-class .hljs-title,
+.hljs-title.class_ {
+    color: #4ec9b0;
+}
+
+/* 6. Methods / Functions (WriteLine, Main) -> VS Yellow */
+.hljs-function,
+.hljs-function .hljs-title,
+.hljs-title.function_ {
+    color: #dcdcaa;
+}
+
+/* 7. Comments (// Comment) -> VS Green */
+.hljs-comment,
+.hljs-quote {
+    color: #57a64a;
+    font-style: italic;
+}
+
+/* 8. Numbers (15, 3.14) -> VS Light Green */
+.hljs-number {
+    color: #b5cea8;
+}
+
+/* 9. Preprocessor directives (#region) -> VS Gray */
+.hljs-meta {
+    color: #9b9b9b;
+}
+
+/* 10. Variables / Properties -> VS Light Blue */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attr,
+.hljs-attribute {
+    color: #9cdcfe;
+}
+
+/* Specific fix for "built_in" types in C# (int, bool, string)
+   VS treats these as Keywords (Blue), but highlight.js treats them as types.
+   We force them to Blue to match VS. */
+.hljs-built_in {
+    color: #569cd6;
+}
