@@ -134,7 +134,7 @@
 <script>
     const themeLink = document.getElementById("theme-link");
     const ldBtn = document.getElementById("theme-toggle");
-    const ldBtnMobile = document.getElementById("theme-toggle-mobile");
+    const ldBtnMobile = document.getElementById("theme-toggle-ctrl");
     const mikeBtn = document.getElementById("mike-toggle");
 
     function applyTheme(themeName) {
@@ -149,8 +149,18 @@
             ldBtn.classList.remove("is-dark");
         }
 
+        if (themeName === 'dark') {
+            ldBtn.classList.add("is-dark");
+            if(ldBtnMobile) ldBtnMobile.classList.add("is-dark");
+        } else {
+            ldBtn.classList.remove("is-dark");
+            if(ldBtnMobile) ldBtnMobile.classList.remove("is-dark");
+        }
+
         localStorage.setItem("theme", themeName);
     }
+
+
 
     const currentTheme = localStorage.getItem("theme") || "light";
     applyTheme(currentTheme);
