@@ -197,7 +197,12 @@ function setupAdminTools() {
     const adminBar = document.getElementById('admin-bar');
     if(!adminBar) return; // Safety if admin bar doesn't exist on page
 
-    adminBar.innerHTML = `<div class="admin-controls"><div id="logged-in-buttons" style="display: flex; gap: 10px; align-items: center;"></div></div>`;
+    adminBar.innerHTML = `
+        <div class="admin-controls">
+            <div id="logged-in-buttons" style="display: flex; gap: 10px; align-items: center;">
+            
+            </div>
+        </div>`;
 
     const auth = getAuth(app);
     onAuthStateChanged(auth, (user) => {
@@ -215,7 +220,7 @@ function setupAdminTools() {
             let deleteButton = '';
             // (Your existing button logic here...)
             loggedInContainer.innerHTML = `
-            <a href="/admin/dashboard" className="btn btn-sm btn-white">Dashboard</a>
+            <a href="/admin/dashboard" class="btn btn-sm btn-white">Dashboard</a>
             <button class="btn btn-sm btn-danger" id="logout-button">Logout</button>
             `;
 
