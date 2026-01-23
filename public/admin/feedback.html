@@ -7,17 +7,26 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link id="theme-link" href="/style/variables-dark.css" rel="stylesheet">
     <script>
-        const storedTheme = localStorage.getItem("theme") || "dark"; // Default to dark to match your HTML
-        const themeLinkHead = document.getElementById("theme-link");
+        (function() {
+            const storedTheme = localStorage.getItem("theme") || "dark";
+            const themeLinkHead = document.getElementById("theme-link");
 
-        // Apply theme immediately before content loads
-        if (storedTheme === 'mike') {
-            themeLinkHead.href = "/style/variables-mike.css";
-        } else if (storedTheme === 'light') {
-            themeLinkHead.href = "/style/variables-light.css";
-        } else {
-            themeLinkHead.href = "/style/variables-dark.css";
-        }
+            if (storedTheme === 'mike') {
+                themeLinkHead.href = "/style/variables-mike.css";
+
+                // --- THE FIX IS HERE ---
+                // We manually force the background color for Mike theme immediately.
+                // CHANGE '#333333' TO THE EXACT BACKGROUND COLOR OF YOUR MIKE THEME
+                document.documentElement.style.backgroundColor = 'hsl(270, 84%, 5%)';
+
+            } else if (storedTheme === 'light') {
+                themeLinkHead.href = "/style/variables-light.css";
+                document.documentElement.style.backgroundColor = 'hsl(0, 0%, 90%)'; // Force white for light mode
+            } else {
+                themeLinkHead.href = "/style/variables-dark.css";
+                document.documentElement.style.backgroundColor = 'hsl(229, 84%, 5%)'; // Force dark for dark mode
+            }
+        })();
     </script>
     <link rel="stylesheet" href="/style/base.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -87,7 +96,7 @@
 <script type="module" src="/admin/feedback.js"></script>
 <script>
     const ldBtn = document.getElementById("theme-toggle");
-    
+
     const currentTheme = localStorage.getItem("theme") || "dark";
 
     if (currentTheme === 'dark') {
