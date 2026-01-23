@@ -70,4 +70,8 @@
         padding: 0.5rem;
         min-width: 32px;
     }
+
+    #homeButton .icon {
+        font-size: var(--icon-small);
+    }
 }
