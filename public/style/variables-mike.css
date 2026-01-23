@@ -82,6 +82,7 @@
     }
 }
 
-.btn {
+.btn-primary {
 background: var(--primary-fg-clr) !important;
+border-color: var(--primary-fg-clr) !important;
 }
