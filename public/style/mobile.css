@@ -70,6 +70,7 @@
         padding: 0.5rem;
         min-width: 32px;
         min-height: 32px;
+        aspect-ratio: 1 / 1;
     }
 
     .ctrl-btn .icon {
