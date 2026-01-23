@@ -1,0 +1,83 @@
+:root {
+    /* ROOT CLRS - Base shifted to Deep Purple (Hue 270) */
+    --root-bg-clr: hsl(270, 84%, 5%);
+    --root-fg-clr: white;
+    --root-txt-clr: #FFFFFFDD;
+    --root-box-bg-clr: hsl(270, 54%, 8%);
+    --root-box-fg-clr: hsl(270, 32%, 12%);
+    --root-fgd-clr: #AAA;
+    --root-ul-sd-clr: gray;
+    --code-bg-clr: hsl(260, 30%, 15%); /* Slightly lighter violet for code */
+    --base-font: "Inter", sans-serif;
+
+    /* BOX STYLES */
+    --box-overlay-clr: hsla(0, 0%, 100%, 4%);
+    --box-clr: hsl(270, 45%, 9%);
+    --box-border-clr: hsl(272, 35%, 25%); /* Lighter purple border */
+    --box-overlay-fg-clr: hsla(0, 0%, 100%, 50%);
+    --box-overlay-border-clr: hsla(0, 0%, 100%, 8%);
+    --box-border-radius: 20px;
+    --box-txt-clr: #FFFFFFBB;
+
+    /* PRIMARY CLRS - Electric Violet (Hue 260) */
+    --primary-boxbg-clr: hsl(260, 100%, 12%);
+    --primary-boxfg-clr: hsl(260, 100%, 15%);
+    --primary-sd-clr: hsl(260, 100%, 10%);
+    --primary-bg-clr: hsl(260, 100%, 19%);
+    --primary-fg-clr: hsl(260, 100%, 32%);
+    --primary-hl-clr: hsl(260, 100%, 75%); /* High contrast lavender */
+
+    /* SECONDARY CLRS - Neon Fuchsia (Hue 300) */
+    --secondary-sd-clr: hsl(300, 100%, 10%);
+    --secondary-bg-clr: hsl(300, 100%, 19%);
+    --secondary-fg-clr: hsl(300, 100%, 32%);
+    --secondary-hl-clr: hsl(300, 100%, 64%);
+
+    /* TRIETARY CLRS - Mint/Teal (Hue 160 - Complementary) */
+    --trietary-sd-clr: hsl(160, 84%, 10%);
+    --trietary-bg-clr: hsl(160, 84%, 19%);
+    --trietary-fg-clr: hsl(160, 84%, 32%);
+    --trietary-hl-clr: hsl(160, 84%, 64%);
+
+    /* DISCL CLRS - Kept semantic but dimmed background */
+    --discl-def-bg-clr: hsl(0, 0%, 19%);
+    --discl-def-fg-clr: hsl(0, 0%, 32%);
+
+    /* Error/Important - Red */
+    --discl-important-bg-clr: hsl(0, 80%, 15%);
+    --discl-important-fg-clr: hsl(0, 100%, 40%);
+
+    /* Success - Green */
+    --discl-importantgreen-bg-clr: hsl(140, 80%, 15%);
+    --discl-importantgreen-fg-clr: hsl(140, 100%, 35%);
+
+    /* Warning - Amber */
+    --discl-warning-bg-clr: hsl(40, 100%, 15%);
+    --discl-warning-fg-clr: hsl(40, 100%, 35%);
+
+    /* Info - Cyan */
+    --discl-info-bg-clr: hsl(190, 80%, 15%);
+    --discl-info-fg-clr: hsl(190, 100%, 40%);
+
+    /* FONT SIZES */
+    --fs-h1: 2.2rem;
+    --fs-h2: 1.7rem;
+    --fs-h3: 1.5rem;
+    --fs-h4: 1.2rem;
+    --fs-hinput: 1.3rem;
+
+    --fs-text: 1rem;
+    --fs-footer: 0.8rem;
+
+    --icon-big: 2.5rem;
+    --icon-small: 1.8rem;
+
+    /* UNDERLINE STYLES */
+    --ul-dotted: linear-gradient(to right, var(--root-ul-sd-clr) 1px, transparent 1px);
+}
+
+@media only screen and (max-width: 500px) {
+    :root {
+        --fs-unimportant: 0.8rem;
+    }
+}
