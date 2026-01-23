@@ -159,7 +159,7 @@ spacer {
 }
 
 /* Common style for both icons */
-.icon-stack icon {
+.icon-stack .icon {
     position: absolute;
     top: 0;
     left: 0; /* Changed from right:0 to ensure centering */
