@@ -81,3 +81,7 @@
         --fs-unimportant: 0.8rem;
     }
 }
+
+.btn {
+background: var(--primary-fg-clr) !important;
+}
