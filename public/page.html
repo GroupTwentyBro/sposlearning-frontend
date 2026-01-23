@@ -5,22 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPOŠLearning</title>
 
+    <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
     <link id="theme-link" href="/style/variables-dark.css" rel="stylesheet">
-
     <link href="/style/base.css" rel="stylesheet">
     <link href="/style/components.css" rel="stylesheet">
     <link href="/style/custom-el.css" rel="stylesheet">
     <link href="/style/mobile.css" rel="stylesheet">
 
+    <!-- Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link href="/style/highlightjs.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+    <!-- MathJax -->
     <script>
         window.MathJax = {
             tex: {
@@ -33,6 +35,8 @@
                 displayIndent: '2em'
             },
             options: {
+                // This ensures MathJax ignores code blocks so it doesn't render
+                // math inside your C# or HTML examples
                 ignoreHtmlClass: 'tex2jax_ignore',
                 processHtmlClass: 'tex2jax_process'
             }
@@ -41,58 +45,92 @@
     <script type="text/javascript" id="MathJax-script" async
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
-
-    <script>
-        const savedTheme = localStorage.getItem("theme");
-        // If theme is 'light', switch away from the default dark immediately
-        if (savedTheme === "light") {
-            document.getElementById("theme-link").href = "/style/variables-light.css";
-        } else {
-            // Ensure 'dark' is in local storage if nothing is set (Default)
-            if (!savedTheme) {
-                localStorage.setItem("theme", "dark");
-            }
-        }
-    </script>
 </head>
 <body>
-<div class="control-bar">
-    <div class="user-controls">
-        <a href="/" class="btn btn-sm btn-primary">Domů</a>
-        <a href="/feedback.html?page=" class="btn btn-sm btn-primary" id="feedback-button">Zpětná vazba</a>
+    <div class="control-bar">
+        <div class="user-controls">
+            <a href="/" class="btn btn-sm btn-primary">Domů</a>
+            <a href="/feedback.html?page=" class="btn btn-sm btn-primary" id="feedback-button">Zpětná vazba</a>
+        </div>
+        <div id="admin-bar"></div>
     </div>
-    <div id="admin-bar"></div>
-</div>
 
-<div class="content" id="wiki-content-container">
-    <h1>Načítání...</h1>
-</div>
+    <div class="content" id="wiki-content-container">
+        <h1>Načítání...</h1>
+    </div>
 
-<div id="password-modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
-    <div style="background-color: var(--primary-boxbg-clr); border: 2px solid var(--primary-boxfg-clr); padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-        <h3 style="margin-top: 0; color: var(--root-fg-clr);">Potvrdit smazání</h3>
-        <p style="color: var(--root-fgd-clr); font-size: var(--fs-text);">Tato akce je nevratná. Zadejte heslo pro potvrzení:</p>
+    <div id="password-modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
+        <div style="background-color: var(--primary-boxbg-clr); border: 2px solid var(--primary-boxfg-clr); padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <h3 style="margin-top: 0; color: var(--root-fg-clr);">Potvrdit smazání</h3>
+            <p style="color: var(--root-fgd-clr); font-size: var(--fs-text);">Tato akce je nevratná. Zadejte heslo pro potvrzení:</p>
 
-        <input type="password" id="modal-password-input" placeholder="Vaše heslo"
-               style="width: 100%; padding: 12px; margin: 20px 0; background: var(--root-bg-clr); border: 1px solid var(--primary-boxfg-clr); color: white; border-radius: 8px; font-size: var(--fs-hinput); outline: none;">
+            <input type="password" id="modal-password-input" placeholder="Vaše heslo"
+                   style="width: 100%; padding: 12px; margin: 20px 0; background: var(--root-bg-clr); border: 1px solid var(--primary-boxfg-clr); color: white; border-radius: 8px; font-size: var(--fs-hinput); outline: none;">
 
-        <div style="display: flex; gap: 10px; justify-content: flex-end;">
-            <button id="modal-cancel-btn" class="btn btn-sm" style="background: var(--discl-def-bg-clr); color: white; border: 1px solid var(--discl-def-fg-clr);">Zrušit</button>
-            <button id="modal-confirm-btn" class="btn btn-sm" style="background: var(--discl-important-bg-clr); color: white; border: 1px solid var(--discl-important-fg-clr);">Smazat navždy</button>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button id="modal-cancel-btn" class="btn btn-sm" style="background: var(--discl-def-bg-clr); color: white; border: 1px solid var(--discl-def-fg-clr);">Zrušit</button>
+                <button id="modal-confirm-btn" class="btn btn-sm" style="background: var(--discl-important-bg-clr); color: white; border: 1px solid var(--discl-important-fg-clr);">Smazat navždy</button>
+            </div>
         </div>
     </div>
-</div>
+    <button id="theme-toggle" class="btn btn-icon">
+        <div class="icon-stack">
+            <icon class="icon-moon">dark_mode</icon>
 
-<button id="theme-toggle" class="btn btn-icon">
-    <div class="icon-stack">
-        <icon class="icon-moon">dark_mode</icon>
-        <icon class="icon-sun">light_mode</icon>
-    </div>
-</button>
+            <icon class="icon-sun">light_mode</icon>
+        </div>
+    </button>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="/js/page.js" type="module"></script>
+    <script>
+        const btn = document.getElementById("theme-toggle");
+        const themeLink = document.getElementById("theme-link");
 
-<script src="/js/page.js" type="module"></script>
-<script src="/js/main.js"></script>
+        // 1. Check local storage on load
+        const currentTheme = localStorage.getItem("theme");
+
+        // Function to apply the visual state of the button
+        function updateButtonState(theme) {
+            if (theme === "dark") {
+                btn.classList.add("is-dark"); // This triggers the CSS fade
+            } else {
+                btn.classList.remove("is-dark");
+            }
+        }
+
+        // Initial setup
+        if (currentTheme === "dark") {
+            themeLink.href = "/style/variables-dark.css";
+            updateButtonState("dark");
+        }
+
+        // 2. Button Click Event
+        btn.addEventListener("click", function() {
+
+            // Toggle Logic
+            if (themeLink.href.includes("variables-light.css")) {
+                // Switch to Dark
+                themeLink.href = "/style/variables-dark.css";
+                localStorage.setItem("theme", "dark");
+                updateButtonState("dark");
+            } else {
+                // Switch to Light
+                themeLink.href = "/style/variables-light.css";
+                localStorage.setItem("theme", "light");
+                updateButtonState("light");
+            }
+        });
+    </script>
+    <script>
+        // Run this immediately to prevent flash of wrong theme
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            document.getElementById("theme-link").href = "/style/variables-dark.css";
+        }
+    </script>
+    <script>
+        hljs.highlightAll();
+    </script>
 </body>
 </html>
