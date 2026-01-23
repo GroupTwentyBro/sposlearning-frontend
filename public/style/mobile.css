@@ -77,7 +77,7 @@
 
     .ctrl-btn .icon-stack {
         width: var(--icon-tiny);
-        height: var(--icon-tiny);
+        height: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
