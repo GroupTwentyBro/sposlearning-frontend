@@ -9,6 +9,9 @@
     --root-ul-sd-clr: gray;
     --code-bg-clr: hsl(213, 30%, 15%);
     --base-font: "Inter", sans-serif;
+    --icon-font: "Material Symbols Outlined";
+    --icon-vars: 'FILL' 1, 'wght' 400;
+    --icon-tiny: 1.2rem;
 
     --box-overlay-clr: hsla(0, 0%, 100%, 4%);
     --box-clr: hsl(228, 45%, 9%);
