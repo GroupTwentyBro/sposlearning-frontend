@@ -11,6 +11,7 @@
     --base-font: "Inter", sans-serif;
     --icon-font: "Material Symbols Outlined";
     --icon-vars: 'FILL' 1, 'wght' 400;
+    --icon-tiny: 1.2rem;
 
     --box-overlay-clr: hsla(0, 0%, 0%, 4%);
     --box-clr: hsl(0, 0%, 87%);

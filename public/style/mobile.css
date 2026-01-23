@@ -72,7 +72,7 @@
     }
 
     .ctrl-btn .icon {
-        font-size: var(--icon-small);
+        font-size: var(--icon-tiny);
     }
 
     .pc {
