@@ -57,7 +57,7 @@
     }
 
     /* Buttons */
-    #homeButton {
+    .ctrl-btn {
         /* 1. Hide the original text "Domů" */
         font-size: 0 !important;
 
@@ -71,7 +71,15 @@
         min-width: 32px;
     }
 
-    #homeButton .icon {
+    .ctrl-btn .icon {
         font-size: var(--icon-small);
+    }
+
+    .pc {
+        display: none !important;
+    }
+
+    .mobile {
+        display: block !important;
     }
 }

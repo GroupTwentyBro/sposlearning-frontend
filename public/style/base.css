@@ -193,3 +193,7 @@ spacer {
 .btn {
     border-radius: var(--box-border-radius) !important;
 }
+
+.mobile {
+    display: none;
+}
