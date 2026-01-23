@@ -190,7 +190,7 @@ function setupAdminTools() {
                 if (currentPage.data.type === 'markdown' || currentPage.data.type === 'html') {
                     editButton = `
                         <a href="/admin/edit.html?path=${currentPage.data.fullPath}" class="btn btn-sm btn-primary pc" id="edit-button">Upravit</a>
-                        <a href="/admin/edit.html?path=${currentPage.data.fullPath}" class="btn btn-sm btn-primary mobile" id="edit-button">
+                        <a href="/admin/edit.html?path=${currentPage.data.fullPath}" class="btn btn-sm btn-primary ctrl-btn mobile" id="edit-button">
                             <span class="icon">edit_note</span>
                         </a>
                     `;
@@ -198,7 +198,7 @@ function setupAdminTools() {
                 // Delete Button logic
                 deleteButton = `
                     <button id="delete-button" class="btn btn-sm btn-danger pc">Smazat</button>
-                    <button class="btn btn-sm btn-danger mobile" id="delete-button">
+                    <button class="btn btn-sm btn-danger ctrl-btn mobile" id="delete-button">
                         <span class="icon">delete</span>
                     </button>
                 `;
@@ -210,10 +210,10 @@ function setupAdminTools() {
                 ${deleteButton}
                 <a href="/admin/dashboard" class="btn btn-sm btn-white pc" id="homeButton">Dashboard</a>
                 <button class="btn btn-sm btn-danger pc" id="logout-button">Logout</button>
-                <a href="/admin/dashboard" class="btn btn-sm btn-white mobile">
+                <a href="/admin/dashboard" class="btn btn-sm btn-white ctrl-btn mobile">
                     <span class="icon">team_dashboard</span>
                 </a>
-                <button class="btn btn-sm btn-danger mobile" id="logout-button">
+                <button class="btn btn-sm btn-danger ctrl-btn mobile" id="logout-button">
                     <span class="icon">logout</span>
                 </button>
             `;
