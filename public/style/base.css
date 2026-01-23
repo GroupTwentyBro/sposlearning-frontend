@@ -171,6 +171,10 @@ spacer {
     line-height: 1;
 }
 
+.icon-stack icon {
+    font-size: var(--icon-big);
+}
+
 .icon-moon {
     opacity: 1;
     transform: rotate(0deg);
