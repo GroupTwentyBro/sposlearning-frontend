@@ -263,19 +263,19 @@ h2.boxed {
     margin: 0; /* Resets default browser margins for pre tags */
 }
 
-input[type="range"]#hueSlider {
-    width: 300px;
-    cursor: pointer;
+input[type="range"] {
+    width: 300px !important;
+    cursor: pointer !important;
     background: linear-gradient(to right,
-    hsl(0, 100%, 50%),
-    hsl(60, 100%, 50%),
-    hsl(120, 100%, 50%),
-    hsl(180, 100%, 50%),
-    hsl(240, 100%, 50%),
-    hsl(300, 100%, 50%),
-    hsl(360, 100%, 50%)
-    );
-    appearance: none; /* Removes default OS styling */
-    height: 10px;
-    border-radius: 5px;
+        hsl(0, 100%, 50%),
+        hsl(60, 100%, 50%),
+        hsl(120, 100%, 50%),
+        hsl(180, 100%, 50%),
+        hsl(240, 100%, 50%),
+        hsl(300, 100%, 50%),
+        hsl(360, 100%, 50%)
+    ) !important;
+    appearance: none !important; /* Removes default OS styling */
+    height: 10px !important;
+    border-radius: 5px !important;
 }
