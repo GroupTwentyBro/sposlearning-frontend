@@ -279,3 +279,38 @@ input[type="range"] {
     height: 40px !important;
     border-radius: 20px !important;
 }
+
+/* 2. Style the Thumb (Chrome, Safari, Edge, Opera) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+
+    /* The "White Vertical Bar" look */
+    height: 24px;   /* Taller than the track */
+    width: 8px;     /* Narrow width */
+    background-color: white;
+    border-radius: 4px; /* Slightly rounded corners */
+    border: 1px solid #ccc; /* Subtle border to see it against white backgrounds */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Shadow for depth */
+    cursor: pointer;
+
+    /* Centering the thumb vertically on the track */
+    /* Formula: (track-height / 2) - (thumb-height / 2) */
+    /* (12px / 2) - (24px / 2) = 6 - 12 = -6px */
+    margin-top: -6px;
+}
+
+/* 3. Style the Thumb (Firefox) */
+input[type="range"]::-moz-range-thumb {
+    /* The "White Vertical Bar" look */
+    height: 24px;
+    width: 8px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    cursor: pointer;
+
+    /* Firefox centers automatically, no margin-top needed */
+    border: none; /* Reset Firefox default border */
+}
