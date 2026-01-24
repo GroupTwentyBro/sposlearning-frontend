@@ -51,13 +51,19 @@
     <div class="box-row">
         <div class="box">
             <div class="col">
-                <icon class="boxed clr2">paint</icon>
+                <icon class="boxed clr2">colors</icon>
                 <h2 class="boxed">Theming</h2>
+                <div class="row">
+                    <div class="col">
+                        <button id="darktheme-btn" class="btn btn-dark">Dark Theme</button>
+                        <button id="miketheme-btn" class="btn btn-dark" style="background-color: hsl(260, 100%, 32%); border-color: hsl(260, 100%, 32%);">Mike Theme</button>
+                    </div>
+                    <div class="col">
+                        <button id="lighttheme-btn" class="btn btn-white">Light Theme</button>
+                        <input type="range" id="hueSlider" min="0" max="360" value="0">
+                    </div>
+                </div>
                 <div class="text boxed">Vyber si theme.</div>
-                <button id="darktheme-btn" class="btn btn-dark">Dark Theme</button>
-                <button id="lighttheme-btn" class="btn btn-white">Light Theme</button>
-                <button id="miketheme-btn" class="btn btn-dark" style="background-color: hsl(260, 100%, 32%); border-color: hsl(260, 100%, 32%);">Mike Theme</button>
-                <input type="range" id="hueSlider" min="0" max="360" value="0">
             </div>
         </div>
     </div>
