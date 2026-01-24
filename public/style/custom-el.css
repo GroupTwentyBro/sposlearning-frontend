@@ -264,7 +264,7 @@ h2.boxed {
 }
 
 input[type="range"] {
-    width: 300px !important;
+    width: auto !important;
     cursor: pointer !important;
     background: linear-gradient(to right,
         hsl(0, 100%, 50%),
@@ -276,6 +276,6 @@ input[type="range"] {
         hsl(360, 100%, 50%)
     ) !important;
     appearance: none !important; /* Removes default OS styling */
-    height: 10px !important;
+    height: 20px !important;
     border-radius: 5px !important;
 }

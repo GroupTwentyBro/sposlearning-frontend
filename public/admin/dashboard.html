@@ -84,18 +84,20 @@
 <script src="dashboard.js" type="module"></script>
 <script>
     const themeLink = document.getElementById("theme-link");
-    const ldBtn = document.getElementById("theme-toggle");
+    const darkBtn = document.getElementById("darktheme-btn");
+    const lightBtn = document.getElementById("lighttheme-btn");
+    const mikeBtn = document.getElementById("miketheme-btn");
+    const hueshiftToggle = document.getElementById("hueSlider");
 
     function applyTheme(themeName) {
-        if (themeName === 'mike') {
+        if (themeName === 'hueshift') {
+            themeLink.href = "/style/theme-hueshift.css";
+        } else if (themeName === 'mike') {
             themeLink.href = "/style/theme-mike.css";
-            ldBtn.classList.remove("is-dark");
         } else if (themeName === 'dark') {
             themeLink.href = "/style/theme-dark.css";
-            ldBtn.classList.add("is-dark");
         } else {
             themeLink.href = "/style/theme-light.css";
-            ldBtn.classList.remove("is-dark");
         }
 
         localStorage.setItem("theme", themeName);
@@ -104,14 +106,20 @@
     const currentTheme = localStorage.getItem("theme") || "light";
     applyTheme(currentTheme);
 
-    ldBtn.addEventListener("click", function() {
-        const current = localStorage.getItem("theme");
+    darkBtn.addEventListener("click", function() {
+        applyTheme("dark");
+    })
 
-        if (current === "dark") {
-            applyTheme("light");
-        } else {
-            applyTheme("dark");
-        }
+    lightBtn.addEventListener("click", function() {
+        applyTheme("light");
+    })
+
+    mikeBtn.addEventListener("click", function() {
+        applyTheme("mike");
+    });
+
+    hueshiftToggle.addEventListener("click", function() {
+        applyTheme("hueshift");
     });
 </script>
 </body>
