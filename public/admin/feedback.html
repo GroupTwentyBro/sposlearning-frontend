@@ -92,6 +92,21 @@
     </div>
     <hr>
 
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <select id="sort-select" class="form-control" style="background-color: var(--primary-boxbg-clr); color: var(--root-fg-clr); border-color: var(--primary-boxfg-clr);">
+                <option value="desc">Sort by: Recent</option>
+                <option value="asc">Sort by: Oldest</option>
+            </select>
+        </div>
+        <div class="col-md-4 d-flex align-items-center">
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="hide-resolved">
+                <label class="custom-control-label" for="hide-resolved">Hide Resolved</label>
+            </div>
+        </div>
+    </div>
+
     <div id="loading" class="text-center">Loading feedback...</div>
 
     <div id="feedback-list" class="list-group">

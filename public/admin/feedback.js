@@ -6,30 +6,69 @@ const db = getFirestore(app);
 const listContainer = document.getElementById('feedback-list');
 const loading = document.getElementById('loading');
 
+// New DOM Elements
+const sortSelect = document.getElementById('sort-select');
+const hideResolvedCheckbox = document.getElementById('hide-resolved');
+
+// State Variables
+let currentSort = 'desc'; // Default to Recent
+let hideResolved = false;
+
 onAuthStateChanged(auth, (user) => {
     if (user) {
+        // Initial load
         loadFeedback();
+        setupControls();
     } else {
-        loadFeedback();
+        // Redirect or handle unauthorized
+        window.location.href = '/admin';
     }
 });
 
+function setupControls() {
+    // Listen for Sort changes
+    sortSelect.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        loadFeedback();
+    });
+
+    // Listen for Filter changes
+    hideResolvedCheckbox.addEventListener('change', (e) => {
+        hideResolved = e.target.checked;
+        loadFeedback();
+    });
+}
+
 async function loadFeedback() {
+    // Show loading state while fetching
+    loading.style.display = 'block';
+    listContainer.innerHTML = '';
+
     try {
-        const q = query(collection(db, 'feedback'), orderBy('timestamp', 'desc'));
+        // Dynamic Query: Uses 'currentSort' (desc or asc)
+        const q = query(collection(db, 'feedback'), orderBy('timestamp', currentSort));
         const snapshot = await getDocs(q);
 
         loading.style.display = 'none';
-        listContainer.innerHTML = '';
 
         if (snapshot.empty) {
             listContainer.innerHTML = '<p class="text-center">No feedback found.</p>';
             return;
         }
 
+        let visibleCount = 0;
+
         snapshot.forEach(doc => {
             const data = doc.data();
             const id = doc.id;
+
+            // --- FILTER LOGIC ---
+            // If "Hide Resolved" is checked AND the item is resolved, skip it.
+            if (hideResolved && data.resolved) {
+                return;
+            }
+
+            visibleCount++;
 
             // Format Preview (max 100 chars)
             let preview = data.message || '';
@@ -58,6 +97,11 @@ async function loadFeedback() {
 
             listContainer.appendChild(a);
         });
+
+        // If we filtered out everything, show a message
+        if (visibleCount === 0) {
+            listContainer.innerHTML = '<p class="text-center">No matching feedback.</p>';
+        }
 
     } catch (error) {
         console.error(error);
