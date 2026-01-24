@@ -139,7 +139,9 @@
     const mikeBtn = document.getElementById("mike-toggle");
 
     function applyTheme(themeName) {
-        if (themeName === 'mike') {
+        if (themeName === 'hueshift') {
+            themeLink.href = "/style/theme-hueshift.css";
+        } else if (themeName === 'mike') {
             themeLink.href = "/style/theme-mike.css";
             ldBtn.classList.remove("is-dark");
         } else if (themeName === 'dark') {
