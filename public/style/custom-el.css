@@ -277,7 +277,7 @@ input[type="range"] {
     ) !important;
     appearance: none !important; /* Removes default OS styling */
     height: 40px !important;
-    border-radius: 20px !important;
+    border-radius: 1px !important;
 }
 
 /* 2. Style the Thumb (Chrome, Safari, Edge, Opera) */
@@ -286,7 +286,7 @@ input[type="range"]::-webkit-slider-thumb {
     appearance: none;
 
     /* The "White Vertical Bar" look */
-    height: 24px;   /* Taller than the track */
+    height: 50px;   /* Taller than the track */
     width: 8px;     /* Narrow width */
     background-color: white;
     border-radius: 4px; /* Slightly rounded corners */
@@ -303,7 +303,7 @@ input[type="range"]::-webkit-slider-thumb {
 /* 3. Style the Thumb (Firefox) */
 input[type="range"]::-moz-range-thumb {
     /* The "White Vertical Bar" look */
-    height: 24px;
+    height: 50px;
     width: 8px;
     background-color: white;
     border-radius: 4px;
