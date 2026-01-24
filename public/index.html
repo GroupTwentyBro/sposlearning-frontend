@@ -114,10 +114,6 @@
         </div>
     </div>
 
-    <button id="mike-toggle" class="btn" title="Mike Theme">
-        <icon>face</icon>
-    </button>
-
     <button id="theme-toggle" class="btn btn-icon pc">
         <div class="icon-stack">
             <icon class="icon-moon">dark_mode</icon>
@@ -136,7 +132,6 @@
     const themeLink = document.getElementById("theme-link");
     const ldBtn = document.getElementById("theme-toggle");
     const ldBtnMobile = document.getElementById("theme-toggle-ctrl");
-    const mikeBtn = document.getElementById("mike-toggle");
     const root = document.documentElement;
 
     function applyTheme(themeName) {
@@ -188,10 +183,6 @@
         } else {
             applyTheme("dark");
         }
-    });
-
-    mikeBtn.addEventListener("click", function() {
-        applyTheme("mike");
     });
 </script>
 </body>
