@@ -13,7 +13,7 @@
             const themeLinkHead = document.getElementById("theme-link");
 
             if (storedTheme === 'mike') {
-                themeLinkHead.href = "/style/variables-mike.css";
+                themeLinkHead.href = "/style/theme-mike.css";
 
                 // --- THE FIX IS HERE ---
                 // We manually force the background color for Mike theme immediately.
@@ -21,10 +21,10 @@
                 document.documentElement.style.backgroundColor = 'hsl(270, 84%, 5%)';
 
             } else if (storedTheme === 'light') {
-                themeLinkHead.href = "/style/variables-light.css";
+                themeLinkHead.href = "/style/theme-light.css";
                 document.documentElement.style.backgroundColor = 'hsl(0, 0%, 90%)'; // Force white for light mode
             } else {
-                themeLinkHead.href = "/style/variables-dark.css";
+                themeLinkHead.href = "/style/theme-dark.css";
                 document.documentElement.style.backgroundColor = 'hsl(229, 84%, 5%)'; // Force dark for dark mode
             }
         })();
@@ -109,11 +109,11 @@
         const themeLink = document.getElementById("theme-link");
 
         if (current === "dark") {
-            themeLink.href = "/style/variables-light.css";
+            themeLink.href = "/style/theme-light.css";
             ldBtn.classList.remove("is-dark");
             localStorage.setItem("theme", "light");
         } else {
-            themeLink.href = "/style/variables-dark.css";
+            themeLink.href = "/style/theme-dark.css";
             ldBtn.classList.add("is-dark");
             localStorage.setItem("theme", "dark");
         }
