@@ -297,7 +297,7 @@ input[type="range"]::-webkit-slider-thumb {
     /* Centering the thumb vertically on the track */
     /* Formula: (track-height / 2) - (thumb-height / 2) */
     /* (12px / 2) - (24px / 2) = 6 - 12 = -6px */
-    margin-top: -4px;
+    margin-top: -2px;
 }
 
 /* 3. Style the Thumb (Firefox) */
