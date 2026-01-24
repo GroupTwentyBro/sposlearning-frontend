@@ -287,7 +287,7 @@ input[type="range"]::-webkit-slider-thumb {
 
     /* The "White Vertical Bar" look */
     height: 50px;   /* Taller than the track */
-    width: 8px;     /* Narrow width */
+    width: 6px;     /* Narrow width */
     background-color: white;
     border-radius: 4px; /* Slightly rounded corners */
     border: 1px solid #ccc; /* Subtle border to see it against white backgrounds */
@@ -297,14 +297,14 @@ input[type="range"]::-webkit-slider-thumb {
     /* Centering the thumb vertically on the track */
     /* Formula: (track-height / 2) - (thumb-height / 2) */
     /* (12px / 2) - (24px / 2) = 6 - 12 = -6px */
-    margin-top: -6px;
+    margin-top: -4px;
 }
 
 /* 3. Style the Thumb (Firefox) */
 input[type="range"]::-moz-range-thumb {
     /* The "White Vertical Bar" look */
     height: 50px;
-    width: 8px;
+    width: 6px;
     background-color: white;
     border-radius: 4px;
     border: 1px solid #ccc;
