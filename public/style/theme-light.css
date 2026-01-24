@@ -8,17 +8,12 @@
     --root-fgd-clr: #AAA;
     --root-ul-sd-clr: gray;
     --code-bg-clr: hsl(213, 5%, 85%);
-    --base-font: "Inter", sans-serif;
-    --icon-font: "Material Symbols Outlined";
-    --icon-vars: 'FILL' 1, 'wght' 400;
-    --icon-tiny: 1.4rem;
 
     --box-overlay-clr: hsla(0, 0%, 0%, 4%);
     --box-clr: hsl(0, 0%, 87%);
     --box-border-clr: hsl(0, 0%, 80%);
     --box-overlay-fg-clr: hsla(0, 0%, 0%, 50%);
     --box-overlay-border-clr: hsla(0, 0%, 0%, 8%);
-    --box-border-radius: 20px;
     --box-txt-clr: #000000BB;
 
     /* PRIMARY CLRS */
@@ -53,25 +48,7 @@
     --discl-info-bg-clr: hsl(200, 100%, 19%);
     --discl-info-fg-clr: hsl(200, 100%, 32%);
 
-    /* FONT SIZES */
-    --fs-h1: 2.2rem;
-    --fs-h2: 1.7rem;
-    --fs-h3: 1.5rem;
-    --fs-h4: 1.2rem;
-    --fs-hinput: 1.3rem;
-
-    --fs-text: 1rem;
-    --fs-footer: 0.8rem;
-
-    --icon-big: 2.5rem;
-    --icon-small: 1.8rem;
-
     /* UNDERLINE STYLES */
     --ul-dotted: linear-gradient(to right, var(--root-ul-sd-clr) 1px, transparent 1px);
 }
 
-@media only screen and (max-width: 500px) {
-    :root {
-        --fs-unimportant: 0.8rem;
-    }
-}

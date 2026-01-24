@@ -1,0 +1,27 @@
+:root {
+    --base-font: "Inter", sans-serif;
+    --icon-font: "Material Symbols Outlined";
+    --icon-vars: 'FILL' 1, 'wght' 400;
+
+    --box-border-radius: 20px;
+
+    /* FONT SIZES */
+    --fs-h1: 2.2rem;
+    --fs-h2: 1.7rem;
+    --fs-h3: 1.5rem;
+    --fs-h4: 1.2rem;
+    --fs-hinput: 1.3rem;
+
+    --fs-text: 1rem;
+    --fs-footer: 0.8rem;
+
+    --icon-big: 2.5rem;
+    --icon-small: 1.8rem;
+    --icon-tiny: 1.4rem;
+}
+
+@media only screen and (max-width: 500px) {
+    :root {
+        --fs-unimportant: 0.8rem;
+    }
+}

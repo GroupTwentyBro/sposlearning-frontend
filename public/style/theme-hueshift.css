@@ -1,0 +1,70 @@
+:root {
+    --hue-val: 0;
+
+    /* ROOT CLRS - Base shifted to Deep Purple (Hue 270) */
+    --root-bg-clr: hsl(var(--hue-val), 84%, 5%);
+    --root-fg-clr: white;
+    --root-txt-clr: #FFFFFFDD;
+    --root-box-bg-clr: hsl(var(--hue-val), 54%, 8%);
+    --root-box-fg-clr: hsl(var(--hue-val), 32%, 12%);
+    --root-fgd-clr: #AAA;
+    --root-ul-sd-clr: gray;
+    --code-bg-clr: hsl(var(--hue-val), 30%, 15%);
+
+    /* BOX STYLES */
+    --box-overlay-clr: hsla(0, 0%, 100%, 4%);
+    --box-clr: hsl(var(--hue-val), 45%, 9%);
+    --box-border-clr: hsl(var(--hue-val), 35%, 25%); /* Lighter purple border */
+    --box-overlay-fg-clr: hsla(0, 0%, 100%, 50%);
+    --box-overlay-border-clr: hsla(0, 0%, 100%, 8%);
+    --box-txt-clr: #FFFFFFBB;
+
+    /* PRIMARY CLRS - Electric Violet (Hue 260) */
+    --primary-boxbg-clr: hsl(var(--hue-val), 100%, 12%);
+    --primary-boxfg-clr: hsl(var(--hue-val), 100%, 15%);
+    --primary-sd-clr: hsl(var(--hue-val), 100%, 10%);
+    --primary-bg-clr: hsl(var(--hue-val), 100%, 19%);
+    --primary-fg-clr: hsl(var(--hue-val), 100%, 32%);
+    --primary-hl-clr: hsl(var(--hue-val), 100%, 75%); /* High contrast lavender */
+
+    /* SECONDARY CLRS - Neon Fuchsia (Hue 300) */
+    --secondary-sd-clr: hsl(var(--hue-val), 100%, 10%);
+    --secondary-bg-clr: hsl(var(--hue-val), 100%, 19%);
+    --secondary-fg-clr: hsl(var(--hue-val), 100%, 32%);
+    --secondary-hl-clr: hsl(var(--hue-val), 100%, 75%);
+
+    /* TRIETARY CLRS - Mint/Teal (Hue 160 - Complementary) */
+    --trietary-sd-clr: hsl(var(--hue-val), 100%, 10%);
+    --trietary-bg-clr: hsl(var(--hue-val), 100%, 19%);
+    --trietary-fg-clr: hsl(var(--hue-val), 100%, 32%);
+    --trietary-hl-clr: hsl(var(--hue-val), 100%, 75%);
+
+    /* DISCL CLRS - Kept semantic but dimmed background */
+    --discl-def-bg-clr: hsl(var(--hue-val), 100%, 19%);
+    --discl-def-fg-clr: hsl(var(--hue-val), 100%, 32%);
+
+    /* Error/Important - Red */
+    --discl-important-bg-clr: hsl(var(--hue-val), 100%, 19%);
+    --discl-important-fg-clr: hsl(var(--hue-val), 100%, 32%);
+
+    /* Success - Green */
+    --discl-importantgreen-bg-clr: hsl(var(--hue-val), 100%, 19%);
+    --discl-importantgreen-fg-clr: hsl(var(--hue-val), 100%, 32%);
+
+    /* Warning - Amber */
+    --discl-warning-bg-clr: hsl(var(--hue-val), 100%, 19%);
+    --discl-warning-fg-clr: hsl(var(--hue-val), 100%, 32%);
+
+    /* Info - Cyan */
+    --discl-info-bg-clr: hsl(var(--hue-val), 100%, 19%);
+    --discl-info-fg-clr: hsl(var(--hue-val), 100%, 32%);
+
+    /* UNDERLINE STYLES */
+    --ul-dotted: linear-gradient(to right, var(--root-ul-sd-clr) 1px, transparent 1px);
+}
+
+.btn-primary, .btn-danger, .btn-white, .btn-secondary, .btn-success, .btn-warning, .btn-dark {
+    background: var(--primary-fg-clr) !important;
+    border-color: var(--primary-fg-clr) !important;
+    color: white !important;
+}
