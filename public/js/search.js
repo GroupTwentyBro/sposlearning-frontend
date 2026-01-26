@@ -18,9 +18,7 @@ const searchResultsContainer = document.getElementById('search-results');
  * Helper to safely extract access level from messy data
  */
 function getAccessLevel(data) {
-    // Check all common naming conventions
     const rawValue = data['access-level'] || data['accessLevel'] || data['access_level'] || 'public';
-    // clean it up (e.g. "Admin " -> "admin")
     return String(rawValue).toLowerCase().trim();
 }
 
@@ -30,7 +28,7 @@ function getAccessLevel(data) {
 async function fetchAllPages() {
     try {
         const querySnapshot = await getDocs(collection(db, 'pages'));
-        allPages = []; // Reset to prevent duplicates on re-runs
+        allPages = []; 
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();
@@ -38,7 +36,6 @@ async function fetchAllPages() {
             if (data.type !== 'redirection') {
                 const detectedAccess = getAccessLevel(data);
 
-                // DEBUG LOG: Check your console to see what the code actually finds
                 if(detectedAccess === 'admin') {
                     console.log(`Protected Page found: ${data.title}`);
                 }
@@ -46,7 +43,7 @@ async function fetchAllPages() {
                 allPages.push({
                     title: data.title,
                     path: data.fullPath,
-                    accessLevel: detectedAccess, // stored as 'admin' or 'public'
+                    accessLevel: detectedAccess, 
                     content: (data.type === 'markdown' || data.type === 'html') ? data.content.toLowerCase() : ''
                 });
             }
@@ -77,29 +74,35 @@ function handleSearch(e) {
     }
 
     // --- KEY FILTERING LOGIC ---
+
+    // A. Pre-calculate paths of pages that match the TITLE
+    // We do this first so we don't have to re-scan for every single page.
+    const matchedTitlePaths = allPages
+        .filter(p => {
+            // Security: Don't use a parent path if the user isn't allowed to see that parent
+            if (p.accessLevel === 'admin' && !currentUser) return false;
+            return p.title.toLowerCase().includes(searchTerm);
+        })
+        .map(p => p.path);
+
+    // B. Filter the actual results
     const results = allPages.filter(page => {
-        // 1. Access Check
+        // 1. Access Check (Security)
         if (page.accessLevel === 'admin') {
-            // If user is NOT logged in, hide this page immediately
             if (!currentUser) return false;
         }
 
-        const matchedTitlePaths = pages
-            .filter(p => p.title.toLowerCase().includes(searchTerm))
-            .map(p => p.path);
+        // 2. Direct Match Checks
+        const matchesPath = page.path.toLowerCase().includes(searchTerm);
+        const matchesTitle = page.title.toLowerCase().includes(searchTerm);
 
-        return pages.filter(page => {
-            // Original checks
-            const matchesPath = page.path.toLowerCase().includes(searchTerm);
-            const matchesTitle = page.title.toLowerCase().includes(searchTerm);
+        // 3. Parent Logic Check
+        // Does this page's path include any of the paths we found in Step A?
+        const isChildOfTitleMatch = matchedTitlePaths.some(parentPath =>
+            page.path.includes(parentPath)
+        );
 
-            // New check: Does this page's path include a path from a Title match?
-            const isChildOfTitleMatch = matchedTitlePaths.some(parentPath =>
-                page.path.includes(parentPath)
-            );
-
-            return matchesPath || matchesTitle || isChildOfTitleMatch;
-        });
+        return matchesPath || matchesTitle || isChildOfTitleMatch;
     });
 
     welcomeMessage.style.display = 'none';
@@ -182,7 +185,6 @@ function createTreeDOM(node) {
         contentElement.className = 'search-result-link';
         contentElement.textContent = node.pageData.title;
 
-        // Optional: Visual indicator for admins so they know it's a hidden page
         if(node.pageData.accessLevel === 'admin') {
             contentElement.innerHTML += ' <span style="font-size:0.8em; color:red;">(Admin)</span>';
         }
@@ -208,30 +210,25 @@ function createTreeDOM(node) {
 
 function setupAdminTools() {
     const adminBar = document.getElementById('admin-bar');
-    if(!adminBar) return; // Safety if admin bar doesn't exist on page
+    if(!adminBar) return; 
 
     adminBar.innerHTML = `
         <div class="admin-controls">
             <div id="logged-in-buttons" style="display: flex; gap: 10px; align-items: center;">
-            
             </div>
         </div>`;
 
     const auth = getAuth(app);
     onAuthStateChanged(auth, (user) => {
-        currentUser = user; // UPDATE GLOBAL STATE
+        currentUser = user; 
         console.log("Auth State Changed. User is:", user ? "Logged In" : "Logged Out");
 
-        // Trigger a re-search if the user types are already there, so results update instantly upon login/logout
         if(searchInput.value.length >= 2) {
             searchInput.dispatchEvent(new Event('input'));
         }
 
         const loggedInContainer = document.getElementById('logged-in-buttons');
         if (user) {
-            let editButton = '';
-            let deleteButton = '';
-            // (Your existing button logic here...)
             loggedInContainer.innerHTML = `
             <a href="/admin/dashboard" class="btn btn-sm btn-white pc" id="homeButton">Dashboard</a>
             <button class="btn btn-sm btn-danger pc" id="logout-button">Logout</button>
@@ -247,7 +244,6 @@ function setupAdminTools() {
                 signOut(auth)
                     .then(() => {
                         console.log("User signed out successfully");
-                        // The onAuthStateChanged listener will trigger automatically and update UI
                     })
                     .catch((error) => {
                         console.error("Error signing out:", error);
