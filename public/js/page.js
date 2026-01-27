@@ -87,41 +87,41 @@ async function loadContent() {
         onAuthStateChanged(auth, (user) => {
             if (getAccessLevel(pageData) === "admin" && !user) {
                 window.location.href = '/';
-            }
-        });
-
-        // Set the browser tab title
-        document.title = pageData.title;
-
-        // 6. Render the content based on its type
-        if (pageData.type === 'markdown') {
-            contentContainer.innerHTML = marked.parse(pageData.content, { breaks: true });
-            contentContainer.classList.add('tex2jax_process');
-            contentContainer.innerHTML = marked.parse(pageData.content, { breaks: true });
-        } else if (pageData.type === 'html') {
-            contentContainer.innerHTML = pageData.content;
-        } else if (pageData.type === 'files') {
-            renderFileExplorer(pageData.title, pageData.content);
-        } else if (pageData.type === 'redirection') {
-            const destination = pageData.content;
-
-            // Check if it's an external link
-            if (destination.startsWith('http://') || destination.startsWith('https://')) {
-                // It's external. Use replace() to act like a real redirect.
-                window.location.replace(destination);
             } else {
-                // It's internal. Use href to navigate like a normal link.
-                window.location.href = destination;
+                // Set the browser tab title
+                document.title = pageData.title;
+
+                // 6. Render the content based on its type
+                if (pageData.type === 'markdown') {
+                    contentContainer.innerHTML = marked.parse(pageData.content, { breaks: true });
+                    contentContainer.classList.add('tex2jax_process');
+                    contentContainer.innerHTML = marked.parse(pageData.content, { breaks: true });
+                } else if (pageData.type === 'html') {
+                    contentContainer.innerHTML = pageData.content;
+                } else if (pageData.type === 'files') {
+                    renderFileExplorer(pageData.title, pageData.content);
+                } else if (pageData.type === 'redirection') {
+                    const destination = pageData.content;
+
+                    // Check if it's an external link
+                    if (destination.startsWith('http://') || destination.startsWith('https://')) {
+                        // It's external. Use replace() to act like a real redirect.
+                        window.location.replace(destination);
+                    } else {
+                        // It's internal. Use href to navigate like a normal link.
+                        window.location.href = destination;
+                    }
+                }
+
+                contentContainer.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise([contentContainer]).catch((err) => console.log(err));
+                }
             }
-        }
-
-        contentContainer.querySelectorAll('pre code').forEach((block) => {
-            hljs.highlightElement(block);
         });
-
-        if (window.MathJax && window.MathJax.typesetPromise) {
-            window.MathJax.typesetPromise([contentContainer]).catch((err) => console.log(err));
-        }
 
     } catch (error) {
         console.error("Error loading content:", error);
