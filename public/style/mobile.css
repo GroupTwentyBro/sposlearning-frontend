@@ -49,6 +49,7 @@
     .box-row {
         flex-direction: column;
         gap: 20px;
+        margin: 10px 0;
     }
 
     .box {
