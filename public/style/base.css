@@ -3,7 +3,7 @@ body {
     color: var(--root-fg-clr);
     font-family: var(--base-font);
     margin-bottom: 40px;
-    transition: background 0.5s, color 0.5s;
+    /* transition: background 0.5s, color 0.5s; */
 }
 
 a {
