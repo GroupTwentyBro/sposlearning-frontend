@@ -24,7 +24,7 @@ let currentPathSelection = "/"; // Defaults to root
 let allPagesCache = []; // Store fetched pages here
 
 // --- Get Elements ---
-let logoutButton, pageForm, pageTypeSelect, saveButton;
+let pageForm, pageTypeSelect, saveButton;
 let editorMarkdown, editorHTML, editorFiles;
 let editorRedirection;
 let pageTitle, pagePath;
@@ -68,16 +68,6 @@ function initializeDashboard() {
 
     enableTabIndentation(document.getElementById('md-content'));
     enableTabIndentation(document.getElementById('html-content'));
-
-    // --- 1. Logout ---
-    logoutButton.addEventListener('click', async () => {
-        try {
-            await signOut(auth);
-            console.log('User logged out.');
-        } catch (error) {
-            console.error('Logout error:', error);
-        }
-    });
 
     // --- 2. Show/Hide Editors based on Dropdown ---
     pageTypeSelect.addEventListener('change', (e) => {
