@@ -11,140 +11,37 @@
     <link rel="stylesheet" href="/style/components.css">
     <link rel="stylesheet" href="/style/custom-el.css">
     <link rel="stylesheet" href="/style/mobile.css">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 <body>
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center">
-        <h1>Dashboard</h1>
-        <a href="/"><button class="btn btn-primary" id="home-button" style="border-radius: 999px !important;"><icon style="font-size: var(--icon-small)">home</icon></button></a>
-        <button class="btn btn-danger" id="logout-button" style="border-radius: 999px !important;">Logout</button>
-    </div>
-    <hr>
 
-    <!--
-      NEW UNIFIED FORM
-    -->
-    <div class="box-row">
-        <div class="box">
-            <div class="col">
-                <icon class="boxed clr1">add_circle</icon>
-                <h2 class="boxed">Přidání článku</h2>
-                <div class="text boxed">Tady se přidávají články. No comment.</div>
-                <a href="/admin/add-page"><button class="btn btn-primary mt-3">Otevřít</button></a>
-            </div>
-        </div>
-        <div class="box">
-            <div class="col">
-                <icon class="boxed clr3">chat</icon>
-                <h2 class="boxed">Zpětná vazba</h2>
-                <div class="text boxed">Zde se můžeš podívat na zpětnou vazbu. Na to přijdeš není to těžký.</div>
-                <a href="/admin/feedback"><button class="btn btn-primary mt-3">Otevřít</button></a>
-            </div>
-        </div>
-    </div>
-    <div class="box-row">
-        <div class="box">
-            <div class="col">
-                <icon class="boxed clr2">colors</icon>
-                <h2 class="boxed">Theming</h2>
-                <div class="row">
-                    <div class="col">
-                        <button id="darktheme-btn" class="btn btn-dark" style="margin: 10px;">Dark Theme</button>
-                        <button id="lighttheme-btn" class="btn btn-white" style="margin: 10px;">Light Theme</button>
-                    </div>
-                    <div class="col">
-                        <button id="miketheme-btn" class="btn btn-dark" style="margin: 10px; background-color: hsl(260, 100%, 32%); border-color: hsl(260, 100%, 32%);">Mike Theme</button>
-                        <input type="range" id="hueSlider" min="0" max="360" value="0" style="margin: 10px;">
-                    </div>
-                </div>
-                <div class="text boxed">Vyber si theme.</div>
-            </div>
-        </div>
+<div id="secure-container">
+    <div style="text-align: center; margin-top: 20%; color: gray;">
+        <h2>Verifying Access...</h2>
     </div>
 </div>
-<!-- Add Bootstrap's JS for tab functionality -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-<!-- Your dashboard logic -->
 <script src="dashboard.js" type="module"></script>
+
 <script>
+    const root = document.documentElement;
     const themeLink = document.getElementById("theme-link");
-    const darkBtn = document.getElementById("darktheme-btn");
-    const lightBtn = document.getElementById("lighttheme-btn");
-    const mikeBtn = document.getElementById("miketheme-btn");
-    const hueshiftToggle = document.getElementById("hueSlider");
-    const root = document.documentElement; // Ensure root is defined
 
+    // Helper to apply theme
     function applyTheme(themeName) {
-        let newHref = "";
-
-        // 1. Determine which file we need
+        let newHref = "/style/theme-light.css";
         if (themeName === 'hueshift') {
             newHref = "/style/theme-hueshift.css";
-            // Ensure the hue variable is set
             root.style.setProperty('--hue-val', localStorage.getItem("hue-val") || 0);
-        } else if (themeName === 'mike') {
-            newHref = "/style/theme-mike.css";
-        } else if (themeName === 'dark') {
-            newHref = "/style/theme-dark.css";
-        } else {
-            newHref = "/style/theme-light.css";
-        }
+        } else if (themeName === 'mike') newHref = "/style/theme-mike.css";
+        else if (themeName === 'dark') newHref = "/style/theme-dark.css";
 
-        // 2. THE FIX: Only change the href if it is actually different.
-        // This prevents the browser from reloading the CSS file while you drag the slider.
-        if (themeLink.getAttribute("href") !== newHref) {
-            themeLink.href = newHref;
-        }
-
+        if (themeLink.getAttribute("href") !== newHref) themeLink.href = newHref;
         localStorage.setItem("theme", themeName);
     }
 
-    // Apply saved theme on load
     const currentTheme = localStorage.getItem("theme") || "light";
-    // If loading into hueshift, make sure the slider matches the saved value
-    if (currentTheme === 'hueshift') {
-        hueshiftToggle.value = localStorage.getItem("hue-val") || 0;
-    }
     applyTheme(currentTheme);
-
-    // --- Event Listeners ---
-
-    darkBtn.addEventListener("click", function() {
-        applyTheme("dark");
-    });
-
-    lightBtn.addEventListener("click", function() {
-        applyTheme("light");
-    });
-
-    mikeBtn.addEventListener("click", function() {
-        applyTheme("mike");
-    });
-
-    // We only use 'input' here. 'click' is unnecessary and causes double-firing.
-    hueshiftToggle.addEventListener('input', (e) => {
-        const val = e.target.value;
-
-        // Update storage and CSS variable immediately
-        localStorage.setItem("hue-val", val);
-        root.style.setProperty('--hue-val', val);
-
-        // Only trigger the theme switch if we aren't already using it
-        // (This allows seamless switching if the user starts dragging while in "Dark" mode)
-        if (localStorage.getItem("theme") !== "hueshift") {
-            applyTheme("hueshift");
-        }
-    });
 </script>
 </body>
 </html>
