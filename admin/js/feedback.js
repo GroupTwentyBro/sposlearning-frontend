@@ -38,36 +38,12 @@ async function checkAuth() {
         currentUser = getUser();
         if (!currentUser.roles.includes('admin')) { window.location.href = '/'; return; }
 
-        setupNavListeners();
         setupControls();
         await fetchFeedbackData();
     } catch (e) {
         console.error('Auth error:', e);
         window.location.href = '/login';
     }
-}
-
-function setupNavListeners() {
-    const gradeSelectBtn = document.getElementById('nav-grade-select');
-    if (gradeSelectBtn) {
-        gradeSelectBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            document.getElementById('grade-menu')?.classList.toggle('hidden');
-        });
-    }
-
-    const accountBtn = document.getElementById('account-button');
-    if (accountBtn) {
-        accountBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            document.getElementById('account-menu')?.classList.toggle('hidden');
-        });
-    }
-
-    document.addEventListener('click', () => {
-        document.getElementById('grade-menu')?.classList.add('hidden');
-        document.getElementById('account-menu')?.classList.add('hidden');
-    });
 }
 
 async function getAuthHeaders() {
@@ -210,7 +186,7 @@ function setupControls() {
         if (!selectedItem) return;
         await deleteFeedbackItem(selectedItem.id);
     });
-    
+
     modalBtnTake?.addEventListener('click', async () => {
         if (!selectedItem || !currentUser) return;
         const takenByData = JSON.stringify({
@@ -295,14 +271,14 @@ function renderFilteredFeedback() {
             try {
                 const tb = JSON.parse(item.taken_by);
                 takenByDisplay = tb.name || tb.email || tb.uid || 'Unknown';
-            } catch(e) {
+            } catch (e) {
                 takenByDisplay = item.taken_by;
             }
             takenByBadge = `<span class="badge-taken"><span class="icon" style="font-size: 0.8rem; vertical-align: middle;">person</span> ${escapeHtml(takenByDisplay)}</span>`;
         } else {
             takeButton = `<button class="btn btn-secondary btn-take-inline" style="padding: 2px 6px; font-size: 0.75rem;" onclick="event.stopPropagation();"><span class="icon" style="font-size: 0.8rem;">front_hand</span> Take</button>`;
         }
-        
+
         const submitterDisplayName = item.name || item.contact || 'Anonymous User';
         const displayIp = item.ip || '';
 
@@ -397,7 +373,7 @@ function openModal(item) {
         try {
             const tb = JSON.parse(item.taken_by);
             modalTakenBy.textContent = tb.name || tb.email || tb.uid || 'Unknown';
-        } catch(e) {
+        } catch (e) {
             modalTakenBy.textContent = item.taken_by;
         }
         if (modalBtnTake) modalBtnTake.classList.add('hidden');
@@ -418,7 +394,7 @@ function openModal(item) {
         try {
             if (typeof item.images === 'string') imagesArr = JSON.parse(item.images);
             else if (Array.isArray(item.images)) imagesArr = item.images;
-        } catch (e) {}
+        } catch (e) { }
 
         if (imagesArr && imagesArr.length > 0) {
             imagesContainer.classList.remove('hidden');

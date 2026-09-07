@@ -135,18 +135,6 @@ function initializeEditor() {
             saveDraftSilently();
         });
     }
-    document.getElementById('nav-grade-select')?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        document.getElementById('grade-menu')?.classList.toggle('hidden');
-    });
-    document.getElementById('account-button')?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        document.getElementById('account-menu')?.classList.toggle('hidden');
-    });
-    document.addEventListener('click', () => {
-        document.getElementById('grade-menu')?.classList.add('hidden');
-        document.getElementById('account-menu')?.classList.add('hidden');
-    });
     setupToolbar();
     toggleViewBtn?.addEventListener('click', togglePreview);
     document.getElementById('save-draft-btn')?.addEventListener('click', saveDraft);
