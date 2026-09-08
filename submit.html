@@ -116,7 +116,7 @@
                 <div class="form-group">
                     <label for="article-title">Article Title</label>
                     <input type="text" id="article-title" class="form-input"
-                        placeholder="e.g., Introduction to Arrays" required />
+                        placeholder="e.g., Introduction to Arrays" required spellcheck="true" autocorrect="on" autocapitalize="sentences" />
                 </div>
                 <div class="form-group">
                     <label for="article-path">Suggested Path</label>
@@ -181,6 +181,10 @@
         <div class="toolbar-group">
             <button class="toolbar-btn" id="btn-toc-manager" title="Manage TOC"><span class="icon">toc</span></button>
         </div>
+        <div class="toolbar-divider"></div>
+        <div class="toolbar-group">
+            <button class="toolbar-btn" id="btn-autocorrect" title="Autocorrect & Spellcheck"><span class="icon">spellcheck</span></button>
+        </div>
     </div>
 
     <div id="editor-container">
@@ -218,7 +222,7 @@
             <div class="image-settings">
                 <div class="setting-group">
                     <label for="img-alt">Alt Text</label>
-                    <input type="text" id="img-alt" class="form-input" placeholder="Description of image" />
+                    <input type="text" id="img-alt" class="form-input" placeholder="Description of image" spellcheck="true" autocorrect="on" />
                 </div>
                 <div class="setting-group">
                     <label for="img-width">Width (% of content)</label>
@@ -247,7 +251,7 @@
         <div class="modal-body">
             <div class="setting-group">
                 <label for="link-text">Link Text</label>
-                <input type="text" id="link-text" class="form-input" placeholder="Click here" />
+                <input type="text" id="link-text" class="form-input" placeholder="Click here" spellcheck="true" autocorrect="on" />
             </div>
             <div class="setting-group">
                 <label for="link-url">URL</label>
@@ -281,7 +285,7 @@
             </div>
             <div class="setting-group">
                 <label for="discl-text">Text</label>
-                <textarea id="discl-text" class="form-input" placeholder="Your disclaimer text here" rows="4"></textarea>
+                <textarea id="discl-text" class="form-input" placeholder="Your disclaimer text here" rows="4" spellcheck="true" autocorrect="on"></textarea>
             </div>
         </div>
         <div class="modal-footer">

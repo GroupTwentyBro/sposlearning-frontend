@@ -1,5 +1,6 @@
 import { CONFIG } from "/js/config.js";
 import { initAuth, getUser, getAccessToken } from "/js/auth.js";
+import { initAutocorrect } from "/js/autocorrect.js";
 
 const API_URL = CONFIG.API_URL;
 let currentUser = null;
@@ -165,7 +166,9 @@ function initializeEditor() {
             },
             lineWrapping: true,
             theme: 'default',
-            viewportMargin: Infinity
+            viewportMargin: Infinity,
+            inputStyle: 'contenteditable',
+            spellcheck: true
         });
 
         cmEditor.addOverlay({
@@ -213,6 +216,7 @@ function initializeEditor() {
     }
 
     setupToolbar();
+    initAutocorrect({ cmEditor, titleInputId: 'article-title', toolbarBtnId: 'btn-autocorrect' });
 
     if (toggleViewBtn) {
         toggleViewBtn.addEventListener('click', togglePreview);

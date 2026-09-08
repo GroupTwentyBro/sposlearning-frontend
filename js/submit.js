@@ -1,5 +1,6 @@
 import { CONFIG } from "/js/config.js";
 import { initAuth, getUser, getAccessToken } from "/js/auth.js";
+import { initAutocorrect } from "/js/autocorrect.js";
 
 const API_URL = CONFIG.API_URL;
 
@@ -186,7 +187,9 @@ function initializeEditor() {
             mode: { name: 'gfm', tokenTypeOverrides: { emoji: 'emoji' } },
             lineWrapping: true,
             theme: 'default',
-            viewportMargin: Infinity
+            viewportMargin: Infinity,
+            inputStyle: 'contenteditable',
+            spellcheck: true
         });
         cmEditor.addOverlay({
             token: function (stream) {
@@ -218,6 +221,7 @@ function initializeEditor() {
 
     loadDraft();
     setupToolbar();
+    initAutocorrect({ cmEditor, titleInputId: 'article-title', toolbarBtnId: 'btn-autocorrect' });
 
     toggleViewBtn?.addEventListener('click', togglePreview);
     document.getElementById('save-draft-btn')?.addEventListener('click', saveDraft);
